@@ -21,6 +21,8 @@ export class ProfileEntity {
   @Column({ type: 'varchar', length: 255 })
   neighborhood!: string; // Define el campo 'neighborhood'
 
-  @Column({ type: 'uuid', unique: true })
-  userId!: string; // Define 'userId' como campo único y de tipo UUID
+  @Column({ type: 'uuid' })
+  userId!: string;
+
+  
 }

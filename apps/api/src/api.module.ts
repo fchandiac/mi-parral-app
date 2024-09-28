@@ -8,12 +8,16 @@ import { ProductModule } from '../product/product.module';
 import { ProductEntity } from 'apps/libs/entities/products/product.entity';
 import { ProfileEntity } from 'apps/libs/entities/profiles/profile.entity';
 import { ProfileModule } from '../profile/profile.module';
+import { DiscountModule } from '../discount/discount.module';
+import { DiscountEntity } from 'apps/libs/entities/discounts/discount.entity';
 
 @Module({
   imports: [
     ServiceModule,
     CommerceModule,
     ProductModule,
+    ProfileModule,
+    DiscountModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -21,7 +25,7 @@ import { ProfileModule } from '../profile/profile.module';
       username: 'root',
       password: 'fenasantma',
       database: 'app-miparral',
-      entities: [ServiceEntity, CommerceEntity, ProductEntity],
+      entities: [ServiceEntity, CommerceEntity, ProductEntity, ProfileEntity, DiscountEntity],
       synchronize: true,
       logging: true,
     }),
