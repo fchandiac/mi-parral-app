@@ -4,7 +4,7 @@ import { Gender, Neighborhoods } from 'apps/libs/enums';
 
 export class CreateProfileDto {
   @IsDateString()
-  @IsNotEmpty()
+  @IsOptional()
   birthdate: string;
 
   @IsUUID()
@@ -18,6 +18,4 @@ export class CreateProfileDto {
   @IsOptional()
   @IsEnum(Neighborhoods)
   neighborhood?: number | null;
-
-  
 }

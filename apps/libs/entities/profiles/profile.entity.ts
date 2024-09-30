@@ -2,27 +2,31 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToMany,
   Unique,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
+import { UserEntity } from '../../entities/users/user.entity'; // Importa la entidad de usuario
 
 @Entity({ name: 'profiles' })
-@Unique(['userId']) // Define 'userId' como campo único
+@Unique(['userId'])
 export class ProfileEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Column({ type: 'date' })
-  birthdate!: Date; // Corrige el nombre de 'birhtdate' a 'birthdate'
+  @Column({ type: 'date', nullable: true })
+  birthdate?: Date;
 
-  @Column({ type: 'varchar', length: 10 })
-  gender!: string;
+  @Column({nullable: true})
+  gender?: number;
 
-  @Column({ type: 'varchar', length: 255 })
-  neighborhood!: string; // Define el campo 'neighborhood'
+  @Column({nullable: true})
+  neighborhood?: number;
+
+  @OneToOne(() => UserEntity)  // Define la relación uno a uno con UserEntity
+  @JoinColumn({ name: 'userId' })  // Define la clave foránea 'userId' que apunta a UserEntity
+  user!: UserEntity;
 
   @Column({ type: 'uuid' })
-  userId!: string;
-
-  
+  userId!: string;  // Este campo es la clave foránea hacia UserEntity
 }

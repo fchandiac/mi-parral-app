@@ -59,6 +59,7 @@ export class AuthController {
   ): Promise<UserEntity> {
     try {
       const user = await this.authService.registerUser(createUserDto);
+      const profile = await this.authService.createProfile({userId: user.id, birthdate: null, neighborhood: null, gender:null  });
       return user;
     } catch (e) {
       return e.response;

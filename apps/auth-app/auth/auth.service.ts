@@ -13,6 +13,8 @@ import { CreateSessionDto } from 'apps/libs/dto/session/create-session.dto';
 import { CreateUserDto } from 'apps/libs/dto/user/create-user.dto';
 import { ValidateUserDto } from 'apps/libs/dto/user/validate-user.dto';
 import { SignInDto } from 'apps/libs/dto/auth/sign-in.dto';
+import { ProfileEntity } from 'apps/libs/entities/profiles/profile.entity';
+import { CreateProfileDto } from 'apps/libs/dto/profile/create-profile.dto';
 
 
 @Injectable()
@@ -26,6 +28,8 @@ export class AuthService {
     private readonly accountRepository: Repository<AccountEntity>,
     @InjectRepository(VerificationTokenEntity)
     private readonly verificationTokenRepository: Repository<VerificationTokenEntity>,
+    @InjectRepository(ProfileEntity)
+    private readonly profileRepository: Repository<ProfileEntity>,
   ) {}
 
   async validateUser(validateUserDto: ValidateUserDto): Promise<UserEntity | null> {
@@ -61,10 +65,14 @@ export class AuthService {
     if (user) {
       throw new UnauthorizedException('User already exists');
     } else {
-      const newUser = this.userRepository.create(createUserDto);
+      const newUser =  this.userRepository.create(createUserDto);
       return this.userRepository.save(newUser);
     }
+  }
 
+  async createProfile(dto: CreateProfileDto): Promise<ProfileEntity> {
+    const profile = this.profileRepository.create(dto);
+    return this.profileRepository.save(profile);
   }
 
   async createSession(sessionDto: CreateSessionDto): Promise<SessionEntity> {

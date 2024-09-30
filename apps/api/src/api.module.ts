@@ -10,6 +10,9 @@ import { ProfileEntity } from 'apps/libs/entities/profiles/profile.entity';
 import { ProfileModule } from '../profile/profile.module';
 import { DiscountModule } from '../discount/discount.module';
 import { DiscountEntity } from 'apps/libs/entities/discounts/discount.entity';
+import { SeederModule }  from '../sedeer/seeder.module';
+import { CategorySeederService } from '../category/category-seeder.service';
+import { CategoryEntity } from 'apps/libs/entities/categories/category.entity';
 
 @Module({
   imports: [
@@ -18,6 +21,7 @@ import { DiscountEntity } from 'apps/libs/entities/discounts/discount.entity';
     ProductModule,
     ProfileModule,
     DiscountModule,
+    SeederModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -25,12 +29,22 @@ import { DiscountEntity } from 'apps/libs/entities/discounts/discount.entity';
       username: 'root',
       password: 'fenasantma',
       database: 'app-miparral',
-      entities: [ServiceEntity, CommerceEntity, ProductEntity, ProfileEntity, DiscountEntity],
+      entities: [CategoryEntity],
+      //entities: [ServiceEntity, CommerceEntity, ProductEntity, ProfileEntity, DiscountEntity, CategoryEntity],
       synchronize: true,
       logging: true,
+      //dropSchema: true,
     }),
   ],
   controllers: [],
   providers: [],
 })
-export class ApiModule {}
+export class ApiModule {
+  constructor(private readonly categorySeederService: CategorySeederService) {}
+
+  async onModuleInit() {
+    await this.categorySeederService.seed();
+  }
+}
+
+

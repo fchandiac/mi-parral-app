@@ -1,6 +1,6 @@
 'use server';
 const apiUrl = process.env.API_BACKEND_URL;
-const imagesUrl = process.env.IMAGES_BACKEND_URL
+const imagesUrl = process.env.IMAGES_BACKEND_URL;
 import { auth } from '../../auth';
 import { validateUser } from './auth-actions';
 import { revalidatePath } from 'next/cache';
@@ -16,10 +16,8 @@ export interface CreateServiceType {
   description: string;
   price: number;
   userId?: string;
-  whatsapp?: string; 
+  whatsapp?: string;
 }
-
-
 
 export interface ServiceType {
   id: string;
@@ -31,7 +29,14 @@ export interface ServiceType {
   createdAt: string | null;
   updatedAt: string | null;
   deletedAt: string | null;
-  
+}
+
+export interface UpdataServiceType {
+  id: string
+  name: string;
+  description: string | null;
+  price: number | null;
+  whatsapp: string | null;
 }
 
 export const listUserServices = async () => {
@@ -47,10 +52,8 @@ export const listUserServices = async () => {
     },
   );
 
-
   return response.json();
 };
-
 
 export const createService = async (service: CreateServiceType) => {
   const session = await auth();
@@ -59,34 +62,37 @@ export const createService = async (service: CreateServiceType) => {
     throw new Error('User validation failed');
   }
   service.userId = user.id;
-  const response = await fetch(`${apiUrl}/services`, {
+  const response = await fetch(`${apiUrl}/service`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(service),
   });
-  
- revalidatePath('/userApp/account/services');
+
+  revalidatePath('/userApp/account/services');
   return response.json();
 };
 
 export const findServiceImages = async (serviceId: string) => {
-  const response = await fetch(`${imagesUrl}/serviceImages?serviceId=${serviceId}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
+  const response = await fetch(
+    `${imagesUrl}/service/images?serviceId=${serviceId}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     },
-  });
+  );
   revalidatePath('/userApp/account/services/ui/ServiceCard');
   return response.json();
-}
+};
 
-export  const refreshImagesServices = async () => {
+export const refreshImagesServices = async () => {
   revalidatePath('/userApp/account/services/ui/ServiceCard');
   console.log('refreshImagesServices');
   return;
-}
+};
 
 export const deleteService = async (serviceId: string) => {
   const response = await fetch(`${apiUrl}/services?id=${serviceId}`, {
@@ -99,7 +105,7 @@ export const deleteService = async (serviceId: string) => {
     throw new Error('Error deleting service');
   }
   revalidatePath('/userApp/account/services/ui/ListServices');
-}
+};
 
 export const findAllServices = async () => {
   const response = await fetch(`${apiUrl}/services`, {
@@ -110,10 +116,13 @@ export const findAllServices = async () => {
   });
   revalidatePath('/userApp/services/layout');
   return response.json();
-}
+};
 
-export const setPrincipalServiceImage = async (serviceId: string, imageId: string) => {
-  const response = await fetch(`${imagesUrl}/setPrincipalServiceImage`, {
+export const setPrincipalServiceImage = async (
+  serviceId: string,
+  imageId: string,
+) => {
+  const response = await fetch(imagesUrl + '/service/setPrincipal', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -122,21 +131,25 @@ export const setPrincipalServiceImage = async (serviceId: string, imageId: strin
   });
   revalidatePath('/userApp/account/services/ui/ServiceCard');
   return response.json();
-}
+};
 
-
-export const  serviceImage = async(serviceId: string) => {
-  const response = await fetch(`${imagesUrl}/serviceImage?serviceId=${serviceId}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
+export const serviceImage = async (serviceId: string) => {
+  const response = await fetch(
+    `${imagesUrl}/service/image?serviceId=${serviceId}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     },
-  });
+  );
   revalidatePath('/userApp/account/services/ui/ServiceCard');
   return response.json();
-}
+};
 
-export const findOneService = async (serviceId: string): Promise<ServiceType> => {
+export const findOneService = async (
+  serviceId: string,
+): Promise<ServiceType> => {
   const response = await fetch(`${apiUrl}/services/findOne?id=${serviceId}`, {
     method: 'GET',
     headers: {
@@ -145,7 +158,7 @@ export const findOneService = async (serviceId: string): Promise<ServiceType> =>
   });
 
   return response.json();
-}
+};
 
 export const findRandomService = async (): Promise<ServiceType> => {
   const response = await fetch(`${apiUrl}/services/findRandom`, {
@@ -155,24 +168,34 @@ export const findRandomService = async (): Promise<ServiceType> => {
     },
   });
   return response.json();
-}
-
-
+};
 
 export const deleteServiceImage = async (imageId: string) => {
-  const response = await fetch(`${imagesUrl}/serviceImage?imageId=${imageId}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
+
+  const response = await fetch(
+    `${imagesUrl}/service?imageId=${imageId}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     },
-  });
+  );
   if (!response.ok) {
     throw new Error('Error deleting service image');
   }
   revalidatePath('/userApp/account/services/ui/ServiceCard');
+
+};
+
+export const updateService = async (service: UpdataServiceType) => {
+  const response = await fetch(`${apiUrl}/services`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(service),
+  });
+  revalidatePath('/userApp/account/services/ui/ServiceCard');
   return response.json();
-}
-
-
-
-
+};

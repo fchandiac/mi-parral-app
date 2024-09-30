@@ -80,7 +80,7 @@ export const createCommerce = async (commerce: CreateCommerceType) => {
 
 export const findCommerceImages = async (commerceId: string) => {
  
-  const response = await fetch(`${imagesUrl}/commerceImages?commerceId=${commerceId}`, {
+  const response = await fetch(`${imagesUrl}/commerce/images?commerceId=${commerceId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -123,7 +123,7 @@ export const findAllCommerces = async () => {
 
 export const setPrincipalCommerceImage = async (commerceId: string, imageId: string) => {
 
-  const response = await fetch(`${imagesUrl}/setPrincipalCommerceImage`, {
+  const response = await fetch(`${imagesUrl}/commerce/setPrincipal`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -134,11 +134,8 @@ export const setPrincipalCommerceImage = async (commerceId: string, imageId: str
   return response.json();
 }
 
-
-
-
 export const deleteCommerceImage = async (imageId: string) => {
-  const response = await fetch(`${imagesUrl}/commerceImage?imageId=${imageId}`, {
+  const response = await fetch(`${imagesUrl}/commerce?imageId=${imageId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',

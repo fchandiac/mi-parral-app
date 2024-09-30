@@ -21,8 +21,16 @@ export const useUploadServiceImage = (): UseUploadServiceImageHook => {
     formData.append('file', file);
     formData.append('serviceId', serviceId);
 
+    const response = await fetch(imagesUrl + '/service/upload', {
+      method: 'POST',
+      body: formData,
+    });
+
+
+  
+
     try {
-      const response = await fetch(imagesUrl + '/uploadService', {
+      const response = await fetch(imagesUrl + 'service/upload', {
         method: 'POST',
         body: formData,
       });

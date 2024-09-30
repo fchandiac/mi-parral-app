@@ -7,7 +7,7 @@ import ImageSkeleton from './ImageSkeleton';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { setPrincipalServiceImage } from '@/app/actions/services-actions';
+import { setPrincipalServiceImage, deleteServiceImage } from '@/app/actions/services-actions';
 
 interface Image {
   id: string;
@@ -28,9 +28,11 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
   };
 
   const setPrincipalIamage = async (serviceId: string, imageId: string) => {
-
     const update = await setPrincipalServiceImage(serviceId, imageId);
+  }
 
+  const deleteImage = async (imageId: string) => {
+    const deleted = await deleteServiceImage(imageId);
   }
 
   // Avanzar al siguiente slide
@@ -138,6 +140,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
 
           <IconButton
           size='small'
+          onClick={() => deleteImage(images[currentIndex].id)}
           sx={{
             position: 'absolute',
             right:  0,

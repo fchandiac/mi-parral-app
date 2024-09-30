@@ -12,6 +12,7 @@ import { VerificationTokenEntity } from 'apps/libs/entities/users/verification-t
 import { AuthService } from '../auth/auth.service';
 import { AuthController } from '../auth/auth.controller';
 import { AuthModule } from '../auth/auth.module';
+import { ProfileEntity } from 'apps/libs/entities/profiles/profile.entity';
 
 
 
@@ -25,9 +26,10 @@ import { AuthModule } from '../auth/auth.module';
       username: 'root',
       password: 'fenasantma',
       database: 'users-miparral',
-      entities: [UserEntity, AccountEntity, SessionEntity, VerificationTokenEntity],
+      entities: [UserEntity, AccountEntity, SessionEntity, VerificationTokenEntity, ProfileEntity],
       synchronize: true,
       logging: true,
+      //dropSchema: true,
     }),
 
   ],

@@ -27,6 +27,8 @@ export async function ServiceCard({
 }: ServiceCardProps): Promise<React.ReactNode> {
   const images = await findServiceImages(id);
 
+
+
   return (
     <>
       <Box
@@ -66,7 +68,7 @@ export async function ServiceCard({
             </Typography>
             <Box display={'inline-block'}>
               <AddImageButton serviceId={id} />
-              <EditServiceButton />
+              <EditServiceButton serviceId={id} name={name} whatsapp={whatsapp} description={description} price={price} />
               <DeleteServiceButton serviceName={name} serviceId={id} />
             </Box>
           </Box>

@@ -118,6 +118,17 @@ export default function SideBar({ open, toggleDrawer }: UserSideBarProps) {
             <MenuItem
               sx={{ width: '100%', paddingLeft: 2 }}
               onClick={() => {
+                router.push('/userApp/account/products');
+                toggleDrawer(false);
+              }}
+            >
+              mis Productos
+            </MenuItem>
+          </ListItem>
+          <ListItem>
+            <MenuItem
+              sx={{ width: '100%', paddingLeft: 2 }}
+              onClick={() => {
                 router.push('/userApp/account/services');
                 toggleDrawer(false);
               }}
@@ -134,6 +145,17 @@ export default function SideBar({ open, toggleDrawer }: UserSideBarProps) {
               }}
             >
               mis Comercios
+            </MenuItem>
+          </ListItem>
+
+          <ListItem disablePadding>
+            <MenuItem sx={{ width: '100%' }} 
+            onClick={()=> {
+              router.push('/userApp/profile');
+              toggleDrawer(false);
+            }}
+            >
+              Mi perfil
             </MenuItem>
           </ListItem>
 
