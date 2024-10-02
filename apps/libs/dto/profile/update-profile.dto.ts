@@ -1,6 +1,9 @@
 import { IsString, IsOptional, IsDateString, IsUUID } from 'class-validator';
 
 export class UpdateProfileDto {
+  @IsUUID()
+  id: string;
+  
   @IsDateString()
   @IsOptional()
   birthdate?: string;
@@ -12,8 +15,4 @@ export class UpdateProfileDto {
   @IsString()
   @IsOptional()
   neighborhood?: string;
-
-  @IsUUID()
-  @IsOptional()
-  userId?: string;
 }

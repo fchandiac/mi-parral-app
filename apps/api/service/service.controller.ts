@@ -3,8 +3,6 @@ import { ServiceService } from './service.service';
 import { CreateServiceDto } from '../../libs/dto/service/create-service.dto';
 // import { UpdateServiceDto } from './update-service.dto'; // DTO para actualizar servicio
 import { ServiceEntity } from '../../libs/entities/services/service.entity'; // Entidad para el servicio
-import { ByIdDto } from '../../libs/dto/common/by-id.dto';
-import { query } from 'express';
 import { UpdateServiceDto } from 'apps/libs/dto/service/update-service.dto';
 
 
@@ -40,6 +38,18 @@ export class ServiceController {
   async findRandom(): Promise<ServiceEntity> {
     return this.serviceService.findRandom();
   }
+
+  @Get('/findAllByCategoryName')
+  async findAllByCategoryName(@Query('name') name: string): Promise<ServiceEntity[]> {
+    return this.serviceService.findAllByCategoryName(name);
+  }
+
+   // FindAllByCategoryNameOrServiceName
+  @Get('/findAllByCategoryNameOrServiceName')
+  async findAllByCategoryNameOrServiceName(@Query('searchTerm') searchTerm: string): Promise<ServiceEntity[]> {
+    return this.serviceService.findAllByCategoryNameOrServiceName(searchTerm);
+  }
+
 
   // Eliminar un servicio por ID
   @Delete('/')

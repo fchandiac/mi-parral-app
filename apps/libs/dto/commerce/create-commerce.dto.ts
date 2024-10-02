@@ -26,5 +26,9 @@ export class CreateCommerceDto {
   @IsOptional()  // Hacemos que la ubicación sea opcional
   location?: string;
 
+  @IsUUID() // Valida que el valor sea un UUID
+  @IsNotEmpty()
+  categoryId: string;
+
   
 }

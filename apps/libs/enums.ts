@@ -16,6 +16,7 @@ export enum Neighborhoods {
   CAMINO_A_CATILLO = 7, // Solo barrios no locales
   CAMINO_A_BULLILEO = 8, // Solo barrios no locales
   TALQUITA = 9, // Solo barrios no locales
+  OTROS = 10, // Solo barrios no locales
 }
 
 

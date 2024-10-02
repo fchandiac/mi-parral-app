@@ -5,16 +5,15 @@ import NewServiceForm from './NewServiceForm';
 import { refreshImagesServices } from '@/app/actions/services-actions';
 
 
-export default function NewServiceButton() {
+export default function NewServiceButton({ categories }: any) {
   const [openNewServiceFormDialog, setOpenNewServiceFormDialog] =
     useState(false);
 
   const handleClose = async () => {
     setOpenNewServiceFormDialog(false);
-
-   
-
   };
+
+
   return (
     <>
       <Button
@@ -40,7 +39,7 @@ export default function NewServiceButton() {
           <Typography variant="h5" align="left" pb={2} >
             Nuevo Servicio
           </Typography>
-          <NewServiceForm onClose={handleClose}/>
+          <NewServiceForm onClose={handleClose} categories={categories}/>
         </Box>
       </Dialog>
     </>

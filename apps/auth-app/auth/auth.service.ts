@@ -13,8 +13,9 @@ import { CreateSessionDto } from 'apps/libs/dto/session/create-session.dto';
 import { CreateUserDto } from 'apps/libs/dto/user/create-user.dto';
 import { ValidateUserDto } from 'apps/libs/dto/user/validate-user.dto';
 import { SignInDto } from 'apps/libs/dto/auth/sign-in.dto';
-import { ProfileEntity } from 'apps/libs/entities/profiles/profile.entity';
+import { ProfileEntity } from 'apps/libs/entities/users/profile.entity';
 import { CreateProfileDto } from 'apps/libs/dto/profile/create-profile.dto';
+import { UpdateProfileDto } from 'apps/libs/dto/profile/update-profile.dto';
 
 
 @Injectable()
@@ -72,6 +73,36 @@ export class AuthService {
 
   async createProfile(dto: CreateProfileDto): Promise<ProfileEntity> {
     const profile = this.profileRepository.create(dto);
+    return this.profileRepository.save(profile);
+  }
+
+  async findProfileByUserId(userId: string): Promise<ProfileEntity> {
+    return this.profileRepository.findOne({ where: { userId } });
+  }
+
+  async isProfileComplete(profileId: string): Promise<Boolean> {
+    const profile = await this.profileRepository.findOne({
+        where: {id: profileId}
+    })
+
+    const { gender, birthdate, neighborhood} = profile
+
+    if (  gender == null || birthdate == null || neighborhood == null) {
+        return false
+    }
+
+    return true
+
+  }
+
+  async updateProfile(dto: UpdateProfileDto): Promise<ProfileEntity> {
+    const profile = await this.profileRepository.findOne({ where: { id: dto.id } });
+
+    if (!profile) {
+      throw new UnauthorizedException('Profile not found');
+    }
+
+    Object.assign(profile, dto);
     return this.profileRepository.save(profile);
   }
 

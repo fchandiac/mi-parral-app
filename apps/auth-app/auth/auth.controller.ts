@@ -1,5 +1,6 @@
 import {
   Controller,
+  Get,
   Post,
   Body,
   Req,
@@ -7,6 +8,8 @@ import {
   HttpStatus,
   HttpException,
   UnauthorizedException,
+  Query,
+  NotFoundException
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import e, { Request, Response } from 'express';
@@ -17,6 +20,8 @@ import { AccountService } from '../account/account.service';
 import { UserEntity } from 'apps/libs/entities/users/user.entity';
 import { CreateUserDto } from 'apps/libs/dto/user/create-user.dto';
 import { ValidateUserDto } from 'apps/libs/dto/user/validate-user.dto';
+import { ProfileEntity } from 'apps/libs/entities/users/profile.entity';
+import { UpdateProfileDto } from 'apps/libs/dto/profile/update-profile.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -95,4 +100,24 @@ export class AuthController {
       );
     }
   }
+
+  @Get('/profile')
+  async getProfile(@Query('userId') userId: string): Promise<ProfileEntity> {
+    const profile = await this.authService.findProfileByUserId(userId);
+    if (!profile) {
+      throw new NotFoundException('Profile not found');
+    }
+    return profile;
+  }
+
+  @Get('/profile/isComplete')
+  async isProfileComplete(@Query('profileId') profileId: string): Promise<Boolean> {
+    return this.authService.isProfileComplete(profileId);
+  }
+
+  @Post('/profile/update')
+  async updateProfile(@Body() dto: UpdateProfileDto): Promise<ProfileEntity> {
+    return this.authService.updateProfile(dto);
+  }
+
 }

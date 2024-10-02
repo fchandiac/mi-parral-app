@@ -43,8 +43,9 @@ const ImageMiniServiceCard: React.FC<ImageMiniServiceCardType> = ({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'flex-end',
-        height: '30vh',
-        width: '30vh',
+        height: '20vh',
+        width: '20vh',
+  
         borderRadius: 3,
         backgroundImage: `url(${imageUrl})`, // Usa la propiedad image para el background
         backgroundSize: 'cover',

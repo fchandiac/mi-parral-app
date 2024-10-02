@@ -39,7 +39,7 @@ export default function EditServiceButton({
           }}
         />
       </IconButton>
-      <Dialog open={openEditDialog} onClose={() => setOpenEditDialog(false)}>
+      <Dialog open={openEditDialog} onClose={() => setOpenEditDialog(false)}     fullWidth>
         <Box p={1}>
           <Typography variant="h5" align="left" pb={2}>
             Editar Servicio {name}

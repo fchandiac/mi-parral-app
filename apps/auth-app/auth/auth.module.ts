@@ -10,14 +10,14 @@ import { VerificationTokenService } from '../verification-token/verification-tok
 import { SessionService } from '../session/session.service';
 import { AccountService } from '../account/account.service';
 import { UserService } from '../user/user.service';
-import { ProfileEntity } from 'apps/libs/entities/profiles/profile.entity';
+import { ProfileEntity } from 'apps/libs/entities/users/profile.entity';
 import { ProfileService } from '../profile/profile.service';
 
 
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UserEntity, AccountEntity, SessionEntity, VerificationTokenEntity, ProfileEntity ]),
+    TypeOrmModule.forFeature([ProfileEntity, UserEntity, AccountEntity, SessionEntity, VerificationTokenEntity]),
   ],
   controllers: [AuthController],
   providers: [AuthService, UserService, AccountService, SessionService, VerificationTokenService, ProfileService],

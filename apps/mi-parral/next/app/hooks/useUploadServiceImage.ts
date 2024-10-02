@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { imagesUrl } from './config';
-import { revalidatePath } from 'next/cache';
+
 
 
 interface UseUploadServiceImageHook {
@@ -21,16 +21,8 @@ export const useUploadServiceImage = (): UseUploadServiceImageHook => {
     formData.append('file', file);
     formData.append('serviceId', serviceId);
 
-    const response = await fetch(imagesUrl + '/service/upload', {
-      method: 'POST',
-      body: formData,
-    });
-
-
-  
-
     try {
-      const response = await fetch(imagesUrl + 'service/upload', {
+      const response = await fetch(imagesUrl + '/service/upload', {
         method: 'POST',
         body: formData,
       });

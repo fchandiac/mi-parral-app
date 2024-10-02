@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
 
 @Entity({ name: 'product_images' })
-export class CommerceImageEntity {
+export class ProductImageEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 

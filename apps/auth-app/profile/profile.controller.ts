@@ -2,7 +2,7 @@ import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common'
 import { ProfileService } from './profile.service';
 import { CreateProfileDto } from '../../libs/dto/profile/create-profile.dto';
 import { UpdateProfileDto } from '../../libs/dto/profile/update-profile.dto';
-import { ProfileEntity } from '../../libs/entities/profiles/profile.entity';
+import { ProfileEntity } from '../../libs/entities/users/profile.entity';
 
 @Controller('profiles')
 export class ProfileController {

@@ -1,36 +1,38 @@
 import 'dotenv/config';
 import * as joi from 'joi';
 
-//     DATABASE_HOST:
-// DATABASE_PORT=5432
-// DATABASE_USER=myuser
-// DATABASE_PASSWORD=mypassword
-// DATABASE_NAME=mydatabase
+
 
 
 interface EnvVars {
     API_PORT: number;
     AUTH_PORT: number;
+    IMAGES_PORT: number;
     NEXT_PORT: number;
     DATABASE_HOST: string;
     DATABASE_PORT: number;
     DATABASE_USER: string;
     DATABASE_PASSWORD: string;
-    DATABASE_NAME: string;
+    API_DATABASE_NAME: string;
+    IMAGES_DATABASE_NAME: string;
+    AUTH_DATABASE_NAME: string;
+    DEFAULT_IMAGE_URL: string;
 
 }
 
 const envVarsSchema: joi.ObjectSchema = joi.object({
     API_PORT: joi.number().default(3001),
     AUTH_PORT: joi.number().default(3002),
+    IMAGES_PORT: joi.number().default(3003),
     NEXT_PORT: joi.number().default(3000),
     DATABASE_HOST: joi.string().required(),
     DATABASE_PORT: joi.number().default(3306),
     DATABASE_USER: joi.string().required(),
     DATABASE_PASSWORD: joi.string().required(),
-    DATABASE_NAME: joi.string().required(),
-    
-
+    API_DATABASE_NAME: joi.string().required(),
+    IMAGES_DATABASE_NAME: joi.string().required(),
+    AUTH_DATABASE_NAME: joi.string().required(),
+    DEFAULT_IMAGE_URL: joi.string().required(),
 }).unknown(true);
 
 
@@ -56,11 +58,17 @@ export const envs = {
     auth: {
         port: envVars.AUTH_PORT,
     },
+    images: {
+        port: envVars.IMAGES_PORT,
+        defaultImageUrl: envVars.DEFAULT_IMAGE_URL,
+    },
     database: {
         host: envVars.DATABASE_HOST,
         port: envVars.DATABASE_PORT,
         user: envVars.DATABASE_USER,
         password: envVars.DATABASE_PASSWORD,
-        name: envVars.DATABASE_NAME,
+        apiDatabaseName: envVars.API_DATABASE_NAME,
+        imagesDatabaseName: envVars.IMAGES_DATABASE_NAME,
+        authDatabaseName: envVars.AUTH_DATABASE_NAME,
     },
 };

@@ -1,61 +1,41 @@
 import HorizontalScroll from '@/components/HorizontalScroll';
+import React from 'react';
 import { Button, Box } from '@mui/material';
-import { findAllServices } from '@/app/actions/services-actions';
+import { findAllByCategoryNameOrServiceName } from '@/app/actions/services-actions';
 import ServiceMiniCard from './ui/ServiceMiniCard';
+import SearchTermInput from './ui/SearchTermInput';
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
-export default async function Layout({
+export default function Layout({
   children,
+ 
 }: {
   children: React.ReactNode;
 }) {
-  const services = await findAllServices();
+  
 
-  const items = services.map((service: any) => (
-    <ServiceMiniCard
-      name={service.name}
-      price={service.price}
-      id={service.id}
-    />
-  ));
+
+  
 
   return (
     <>
       <Box
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          minHeight: '100vh',
-          backgroundColor: 'background.default'
-          //backgroundColor: 'primary.main',
+          mt: '60px',
+          height: '54vh',
+          justifyContent: 'center',
+          alignItems: 'center',
+          //pb: 'auto',
+          px: { xs: 0, sm: 0, md: '30vw', lg: '30vw' }, // Optional padding for header}
+          //backgroundColor: 'background.default',
+          //backgroundColor: 'primary.main', // Optional background color for header
         }}
       >
-        <Box
-          sx={{
-            mt: '60px',
-            height: '50vh',
-            justifyContent: 'center',
-            alignItems: 'center',
-            pb: 'auto',
-            px: { xs: 0, sm: 0, md: '30vw', lg: '30vw' }, // Optional padding for header}
-            //backgroundColor: 'background.default',
-            //backgroundColor: 'primary.main', // Optional background color for header
-          }}
-        >
-          {children}
-        </Box>
-
-        <Box
-          sx={{
-            width: '100%',
-            backgroundColor: 'background.default',
-            //backgroundColor: 'primary.main', // Optional background color for footer
-            marginTop: 'auto',
-            mb: '60px',
-          }}
-        >
-          <HorizontalScroll listItems={items} />
-        </Box>
+        {children}
       </Box>
+
+
     </>
   );
 }

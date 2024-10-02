@@ -12,7 +12,8 @@ import { VerificationTokenEntity } from 'apps/libs/entities/users/verification-t
 import { AuthService } from '../auth/auth.service';
 import { AuthController } from '../auth/auth.controller';
 import { AuthModule } from '../auth/auth.module';
-import { ProfileEntity } from 'apps/libs/entities/profiles/profile.entity';
+import { ProfileEntity } from 'apps/libs/entities/users/profile.entity';
+import { envs } from 'apps/libs/config';
 
 
 
@@ -21,11 +22,11 @@ import { ProfileEntity } from 'apps/libs/entities/profiles/profile.entity';
     AuthModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'fenasantma',
-      database: 'users-miparral',
+      host: envs.database.host,
+      port: envs.database.port,
+      username: envs.database.user,
+      password: envs.database.password,
+      database: envs.database.authDatabaseName,
       entities: [UserEntity, AccountEntity, SessionEntity, VerificationTokenEntity, ProfileEntity],
       synchronize: true,
       logging: true,

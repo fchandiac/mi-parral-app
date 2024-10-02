@@ -17,6 +17,10 @@ interface CommerceCardProps {
   whatsapp: string | null;
   address: string | null;
   location: string | null;
+  category: {
+    id: string;
+    name: string;
+  };
 }
 
 export default async function CommerceCard({
@@ -26,9 +30,9 @@ export default async function CommerceCard({
   whatsapp,
   address,
   location,
+  category
 }: CommerceCardProps) {
   const images = await findCommerceImages(id);
-
 
   return (
     <>
@@ -37,7 +41,7 @@ export default async function CommerceCard({
           display: 'flex',
           flexDirection: 'column',
           width: '100%',
-          height: '90vh',
+          height: '70vh',
           borderRadius: '1rem',
           border: '1px solid',
           boxShadow: '0 4px 4px rgba(0, 0, 0, 0.4)',
@@ -85,7 +89,7 @@ export default async function CommerceCard({
         </Box>
 
         <ImageSlider images={images} />
-        
+
         <Box
           borderTop={'1px solid'}
           sx={{ padding: 1 }} // Agrega padding al contenedor
@@ -107,6 +111,9 @@ export default async function CommerceCard({
             <Box flexGrow={1}>
               <Typography fontSize={14} textAlign={'justify'}>
                 <LocationOn fontSize={'small'} /> {address}
+              </Typography>
+              <Typography fontSize={14} textAlign={'justify'} pl={1}>
+                <strong>{category? category.name : 'Sin categoría'}</strong>
               </Typography>
             </Box>
 

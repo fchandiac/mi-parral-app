@@ -1,8 +1,10 @@
 import { Box } from '@mui/material';
 import NewCommerceButton from './ui/NewCommerceButton';
 import CommercesList from './ui/CommercesList';
+import { findAllCategories } from '@/app/actions/categories-actions';
 
-export default function CommercePage() {
+export default async function CommercePage() {
+  const categories =  await findAllCategories();
   return (
     
     <Box
@@ -12,7 +14,7 @@ export default function CommercePage() {
       minWidth={'330px'}
       pt={2}
     >
-      <NewCommerceButton />
+      <NewCommerceButton categories={categories}/>
       <CommercesList />
      
     </Box>

@@ -15,6 +15,7 @@ interface ServiceCardProps {
   description: string;
   price: number;
   whatsapp: string;
+  category: string;
 }
 
 // Exportando como una función declarada en lugar de una constante
@@ -24,11 +25,10 @@ export async function ServiceCard({
   description,
   price,
   whatsapp,
-}: ServiceCardProps): Promise<React.ReactNode> {
+  category,
+}: ServiceCardProps){
+
   const images = await findServiceImages(id);
-
-
-
   return (
     <>
       <Box
@@ -36,7 +36,7 @@ export async function ServiceCard({
           display: 'flex',
           flexDirection: 'column',
           width: '100%',
-          height: '90vh',
+          height: '70vh',
           borderRadius: '1rem',
           border: '1px solid',
           boxShadow: '0 4px 4px rgba(0, 0, 0, 0.4)',
@@ -97,6 +97,10 @@ export async function ServiceCard({
                   style: 'currency',
                   currency: 'CLP',
                 })}
+              </Typography>
+              <Typography fontSize={14} textAlign={'justify'}>
+                <strong>{category}</strong>
+                
               </Typography>
             </Box>
 

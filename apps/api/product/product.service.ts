@@ -5,17 +5,21 @@ import { ProductEntity } from '../../libs/entities/products/product.entity';
 import { CreateProductDto } from '../../libs/dto/product/create-product.dto';
 import { ByIdDto } from 'apps/libs/dto/common/by-id.dto';
 import { UpdateProductDto } from 'apps/libs/dto/product/update-product.dto';
+import { CategoryService } from '../category/category.service';
 
 @Injectable()
 export class ProductService {
   constructor(
     @InjectRepository(ProductEntity)
     private readonly productRepository: Repository<ProductEntity>,
+    private readonly categoryService: CategoryService,
   ) {}
 
   // Crear un nuevo producto
-  async create(createProductDto: CreateProductDto): Promise<ProductEntity> {
-    const product = this.productRepository.create(createProductDto);
+  async create(dto: CreateProductDto): Promise<ProductEntity> {
+    const category = await this.categoryService.findOne(dto.categoryId);
+    const product = this.productRepository.create(dto);
+    product.category = category;
     return this.productRepository.save(product);
   }
 
@@ -24,12 +28,17 @@ export class ProductService {
     return this.productRepository.find({
       order: { createdAt: 'DESC' },
       withDeleted: false,
+      relations: ['category'],
     });
   }
 
   // Obtener un producto por ID
   async findOne(id: string): Promise<ProductEntity> {
-    const product = await this.productRepository.findOneBy({ id });
+    const product = await this.productRepository.findOne({
+      where: { id },
+      relations: ['category'],
+      withDeleted: false,
+    })
     if (!product) {
       throw new NotFoundException(`Product with ID ${id} not found`);
     }
@@ -38,7 +47,12 @@ export class ProductService {
 
   // Obtener todos los productos de un usuario
   async findAllByUserId(byIdDto: ByIdDto): Promise<ProductEntity[]> {
-    return this.productRepository.find({ where: { userId: byIdDto.id } });
+    return this.productRepository.find({ 
+      where: { userId: byIdDto.id },
+      order: { createdAt: 'DESC' },
+      withDeleted: false,
+      relations: ['category'],
+     });
   }
 
   // Eliminar un producto por ID
@@ -51,7 +65,7 @@ export class ProductService {
 
   // Obtener un producto aleatorio
   async findRandom(): Promise<ProductEntity> {
-    const products = await this.productRepository.find({ withDeleted: false });
+    const products = await this.productRepository.find({ withDeleted: false, relations: ['category'] });
     const randomIndex = Math.floor(Math.random() * products.length);
     return products ? products[randomIndex] : null;
   }

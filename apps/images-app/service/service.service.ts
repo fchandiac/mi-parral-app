@@ -7,6 +7,7 @@ import { unlink } from 'fs/promises';
 import { ServiceImageEntity } from '../../libs/entities/images/service-image.entity';
 import { UploadServiceImageDto } from 'apps/libs/dto/images/upload-service-image.dto';
 import { SetPrincipalServiceImageDto } from 'apps/libs/dto/images/set-principal-service-image.dto';
+import { envs } from 'apps/libs/config';
 
 @Injectable()
 export class ServiceService {
@@ -25,7 +26,9 @@ export class ServiceService {
     },
   });
 
-  async upload(uploadServiceImageDto: UploadServiceImageDto): Promise<ServiceImageEntity> {
+  async upload(
+    uploadServiceImageDto: UploadServiceImageDto,
+  ): Promise<ServiceImageEntity> {
     const { serviceId, file } = uploadServiceImageDto;
     const newImage = this.serviceImageRepository.create({
       serviceId,
@@ -39,7 +42,9 @@ export class ServiceService {
     return this.serviceImageRepository.find({ where: { serviceId } });
   }
 
-  async setPrincipalImage(dto: SetPrincipalServiceImageDto): Promise<ServiceImageEntity> {
+  async setPrincipalImage(
+    dto: SetPrincipalServiceImageDto,
+  ): Promise<ServiceImageEntity> {
     const { serviceId, imageId } = dto;
     const images = await this.findAllById(serviceId);
     const image = images.find((img) => img.id === imageId);
@@ -54,7 +59,7 @@ export class ServiceService {
           img.principal = false;
           await this.serviceImageRepository.save(img);
         }
-      })
+      }),
     );
 
     image.principal = true;
@@ -67,18 +72,32 @@ export class ServiceService {
     });
 
     if (!image) {
-      throw new NotFoundException('Principal image not found');
+      return {
+        id: null,
+        serviceId,
+        image: envs.images.defaultImageUrl,
+        principal: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
     }
     return image;
+   
   }
 
   async deleteImage(imageId: string): Promise<void> {
-    const image = await this.serviceImageRepository.findOne({ where: { id: imageId } });
+    const image = await this.serviceImageRepository.findOne({
+      where: { id: imageId },
+    });
     if (!image) {
       throw new NotFoundException('Image not found');
     }
 
-    const imagePath = join(__dirname, '../../dist/apps/images/services', image.image);
+    const imagePath = join(
+      __dirname,
+      '../../dist/apps/images/services',
+      image.image,
+    );
 
     try {
       await unlink(imagePath);

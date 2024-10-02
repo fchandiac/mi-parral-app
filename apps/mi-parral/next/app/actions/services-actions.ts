@@ -1,10 +1,12 @@
 'use server';
-const apiUrl = process.env.API_BACKEND_URL;
-const imagesUrl = process.env.IMAGES_BACKEND_URL;
+
 import { auth } from '../../auth';
 import { validateUser } from './auth-actions';
 import { revalidatePath } from 'next/cache';
 import { setTimeout } from 'timers/promises';
+
+const apiUrl = process.env.API_BACKEND_URL;
+const imagesUrl = process.env.IMAGES_BACKEND_URL;
 
 export interface SetPrincipalServiceImageType {
   serviceId: string;
@@ -17,6 +19,7 @@ export interface CreateServiceType {
   price: number;
   userId?: string;
   whatsapp?: string;
+  categoryId?: number;
 }
 
 export interface ServiceType {
@@ -29,6 +32,10 @@ export interface ServiceType {
   createdAt: string | null;
   updatedAt: string | null;
   deletedAt: string | null;
+  category: {
+    id: number;
+    name: string;
+  };
 }
 
 export interface UpdataServiceType {
@@ -61,14 +68,18 @@ export const createService = async (service: CreateServiceType) => {
   if (!user || !user.id) {
     throw new Error('User validation failed');
   }
+
+
+
   service.userId = user.id;
-  const response = await fetch(`${apiUrl}/service`, {
+  const response = await fetch(`${apiUrl}/services`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(service),
   });
+
 
   revalidatePath('/userApp/account/services');
   return response.json();
@@ -114,7 +125,9 @@ export const findAllServices = async () => {
       'Content-Type': 'application/json',
     },
   });
+
   revalidatePath('/userApp/services/layout');
+  
   return response.json();
 };
 
@@ -197,5 +210,38 @@ export const updateService = async (service: UpdataServiceType) => {
     body: JSON.stringify(service),
   });
   revalidatePath('/userApp/account/services/ui/ServiceCard');
+  return response.json();
+};
+
+
+//findAllByCategoryName
+
+export const findAllByCategoryName = async (name: string) => {
+  const response = await fetch(
+    `${apiUrl}/services/findAllByCategoryName?name=${name}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  );
+
+  return response.json();
+};
+
+
+export const findAllByCategoryNameOrServiceName = async (searchTerm: string) => {
+  console.log('searchTerm', searchTerm);
+  const response = await fetch(
+    `${apiUrl}/services/findAllByCategoryNameOrServiceName?searchTerm=${searchTerm}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  );
+
   return response.json();
 };

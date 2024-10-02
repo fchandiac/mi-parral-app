@@ -2,10 +2,11 @@ import { NestFactory } from '@nestjs/core';
 import { ApiModule } from './api.module';
 import * as cors from 'cors';
 import { Logger, ValidationPipe } from '@nestjs/common';
+import { envs } from 'apps/libs/config';
 
 async function bootstrap() {
   const logger = new Logger('Api');
-  const port = 3003;
+  const port = envs.api.port;
 
   const app = await NestFactory.create(ApiModule);
 

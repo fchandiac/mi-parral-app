@@ -3,10 +3,11 @@ import { ImagesAppModule } from './images-app.module';
 import { NestFactory } from '@nestjs/core';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import * as cors from 'cors';
+import { envs } from 'apps/libs/config';
 
 async function bootstrap() {
   const logger = new Logger('ImagesApp');
-  const port = 3002;
+  const port = envs.images.port;
 
   const app = await NestFactory.create(ImagesAppModule);
 
@@ -16,8 +17,6 @@ async function bootstrap() {
     allowedHeaders: 'Content-Type, Authorization', // Cabeceras permitidas
     credentials: true, // Permite el envío de cookies con solicitudes
   });
-
-  
 
   app.useGlobalPipes(new ValidationPipe(
     {

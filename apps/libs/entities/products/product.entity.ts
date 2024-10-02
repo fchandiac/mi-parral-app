@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
-
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, ManyToOne } from 'typeorm';
+import { CategoryEntity } from '../categories/category.entity';
 @Entity({ name: 'products' })
 export class ProductEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -28,4 +28,9 @@ export class ProductEntity {
 
   @DeleteDateColumn({ type: 'timestamp', nullable: true }) // Fecha de eliminación lógica (soft delete)
   deletedAt?: Date;
+
+  @ManyToOne(() => CategoryEntity, (category) => category.products)
+  category!: CategoryEntity; // Categoría a la que pertenece el producto
+
+
 }

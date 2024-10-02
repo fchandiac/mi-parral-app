@@ -6,7 +6,7 @@ import {
   OneToOne,
   JoinColumn,
 } from 'typeorm';
-import { UserEntity } from '../../entities/users/user.entity'; // Importa la entidad de usuario
+import { UserEntity } from './user.entity'; // Importa la entidad de usuario
 
 @Entity({ name: 'profiles' })
 @Unique(['userId'])

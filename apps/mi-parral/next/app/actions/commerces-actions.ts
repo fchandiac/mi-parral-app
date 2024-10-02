@@ -19,6 +19,7 @@ export interface CreateCommerceType {
   whatsapp?: string;
   address?: string;
   location?: string;
+  categoryId?: string;
 }
 
 export interface UpdateCommerceType {
@@ -41,6 +42,7 @@ export interface CommerceType {
   createdAt: string | null;
   updatedAt: string | null;
   deletedAt: string | null;
+  category: { id: string; name: string; };
 }
 
 export const listUserCommerces = async () => {

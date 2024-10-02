@@ -21,7 +21,7 @@ export const useUploadCommerceImage = (): UseUploadCommerceImageHook => {
     formData.append('commerceId', commerceId);
 
     try {
-      const response = await fetch(imagesUrl + '/uploadCommerce', {
+      const response = await fetch(imagesUrl + '/commerce/upload', {
         method: 'POST',
         body: formData,
       });

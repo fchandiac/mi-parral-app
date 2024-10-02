@@ -34,6 +34,7 @@ export default async function CommercesList() {
               address={commerce.address}
               whatsapp={commerce.whatsapp}
               location={commerce.location}
+              category={commerce.category}
             />
           </Grid>
         ))}

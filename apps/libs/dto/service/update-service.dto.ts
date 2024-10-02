@@ -22,4 +22,5 @@ export class UpdateServiceDto {
     @IsOptional() // Hace que este campo no sea obligatorio
     @IsString()
     whatsapp?: string; // Campo opcional para el número de WhatsApp
+
 }

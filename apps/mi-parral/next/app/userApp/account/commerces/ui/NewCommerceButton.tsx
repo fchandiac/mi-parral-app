@@ -5,7 +5,11 @@ import NewCommerceForm from './NewCommerceForm';
 // import NewServiceForm from './NewServiceForm';
 // import { refreshImagesServices } from '@/app/actions/services-actions';
 
-export default function NewCommerceButton() {
+interface NewCommerceButtonProps {
+  categories: any;
+}
+
+export default function NewCommerceButton({ categories }: NewCommerceButtonProps) {
   const [openNewServiceFormDialog, setOpenNewServiceFormDialog] =
     useState(false);
 
@@ -34,7 +38,7 @@ export default function NewCommerceButton() {
           <Typography variant="h5" align="left" pb={2}>
             Nuevo Comercio
           </Typography>
-          <NewCommerceForm onClose={handleClose} />
+          <NewCommerceForm onClose={handleClose} categories={categories} />
         </Box>
       </Dialog>
     </>

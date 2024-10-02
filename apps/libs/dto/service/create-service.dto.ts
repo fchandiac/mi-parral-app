@@ -22,4 +22,8 @@ export class CreateServiceDto {
     @IsOptional() // Hace que este campo no sea obligatorio
     @IsString()
     whatsapp?: string; // Campo opcional para el número de WhatsApp
+
+    @IsUUID() // Valida que el valor sea un UUID
+    @IsNotEmpty()
+    categoryId: string;
 }
