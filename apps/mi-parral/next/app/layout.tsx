@@ -21,7 +21,9 @@ export default function RootLayout({
       <SessionProvider>
         <body>
           <MuiApp>
-            <Box>{children}</Box>
+            <Box
+            minHeight={'700px'}
+            >{children}</Box>
           </MuiApp>
           </body>
       </SessionProvider>

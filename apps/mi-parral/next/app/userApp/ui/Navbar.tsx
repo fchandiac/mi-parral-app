@@ -28,17 +28,18 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
     switch (pathname) {
       case '/userApp/account':
         return 'Mi cuenta';
-      case '/userApp/account/services':
+      case '/userApp/posts/services':
         return 'mis Servicios';
-      case '/userApp/account/commerces':
+      case '/userApp/posts/commerces':
         return 'mis Comercios';
       case '/userApp/services':
         return 'Servicios';
-      case '/userApp/account/products':
+      case '/userApp/posts/products':
         return 'mis Productos';
       case '/userApp/profile':
         return 'Mi perfil';
-
+      case '/userApp/products':
+        return 'Productos';
       default:
         return pathname;
     }

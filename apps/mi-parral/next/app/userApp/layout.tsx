@@ -7,6 +7,7 @@ import { Box } from '@mui/material';
 import Footer from './ui/Footer';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { findRandomService } from '../actions/services-actions';
+import { findRandomProduct } from '../actions/products-actions';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [openSideBar, setOpenSideBar] = useState(false);
@@ -30,13 +31,26 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   useEffect(() => {
 
     const querySerivceId = searchParams.get('serviceId');
+    const queryProductId = searchParams.get('productId');
+
     const randomService = async () => {
       const service = await findRandomService();
       updateSearchParam('serviceId', service.id);
     };
+
+    const ramdomProduct = async () => {
+      const product = await findRandomProduct();
+      updateSearchParam('productId', product.id);
+    }
     if (!querySerivceId && pathname === '/userApp/services') {
       randomService();
     }
+
+    if (!queryProductId && pathname === '/userApp/products') {
+      ramdomProduct();
+    }
+
+    
   }, [pathname]);
 
 

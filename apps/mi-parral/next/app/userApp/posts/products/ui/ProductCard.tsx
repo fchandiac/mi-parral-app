@@ -2,14 +2,11 @@
 import { Box, Card, CardContent, Typography } from '@mui/material';
 import ImageSlider from  './ImageSlider'
 import { findProductImages } from '@/app/actions/products-actions';
-
-// import AddImageButton from './AddImageButton';
-import { revalidatePath } from 'next/cache';
-// import EditServiceButton from './EditServiceButton';
-// import DeleteServiceButton from './DeleteServiceButton';
 import DescriptionIcon from '@mui/icons-material/Description';
 import WspButton from '@/components/WspButton';
 import AddImageButton from './AddImageButton';
+import DeleteProductButton from './DeleteProductButton';
+import EditProductButton from './EditProductbutton';
 
 interface ProductCardProps {
   id: string;
@@ -31,6 +28,7 @@ export async function ProductCard({
 }: ProductCardProps){
 
   const images = await findProductImages(id);
+
   return (
     <>
       <Box
@@ -70,8 +68,8 @@ export async function ProductCard({
             </Typography>
             <Box display={'inline-block'}>
               <AddImageButton serviceId={id} />
-              {/* <EditServiceButton serviceId={id} name={name} whatsapp={whatsapp} description={description} price={price} />
-              <DeleteServiceButton serviceName={name} serviceId={id} /> */}
+              <EditProductButton productId={id} name={name} description={description} whatsapp={whatsapp} price={price} />
+              <DeleteProductButton productId={id} productName={name} />
             </Box>
           </Box>
         </Box>

@@ -82,6 +82,7 @@ export const createProduct = async (product: CreateProductType) => {
 };
 
 export const findProductImages = async (productId: string) => {
+  console.log('findProductImages', productId);
   const response = await fetch(
     `${imagesUrl}/product/images?productId=${productId}`,
     {
@@ -91,8 +92,10 @@ export const findProductImages = async (productId: string) => {
       },
     },
   );
-  revalidatePath('/userApp/account/products/ui/ProductCard');
+
+
   return response.json();
+
 };
 
 export const refreshImagesProducts = async () => {
@@ -127,10 +130,13 @@ export const findAllProducts = async () => {
   return response.json();
 };
 
+
+
 export const setPrincipalProductImage = async (
   productId: string,
   imageId: string,
 ) => {
+
   const response = await fetch(imagesUrl + '/product/setPrincipal', {
     method: 'POST',
     headers: {
@@ -139,6 +145,7 @@ export const setPrincipalProductImage = async (
     body: JSON.stringify({ productId, imageId }),
   });
   revalidatePath('/userApp/account/products/ui/ProductCard');
+
   return response.json();
 };
 
@@ -181,7 +188,7 @@ export const findRandomProduct = async (): Promise<ProductType> => {
 
 export const deleteProductImage = async (imageId: string) => {
   const response = await fetch(
-    `${imagesUrl}/product?imageId=${imageId}`,
+    `${imagesUrl}/product/image?imageId=${imageId}`,
     {
       method: 'DELETE',
       headers: {

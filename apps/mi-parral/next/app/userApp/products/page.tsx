@@ -1,41 +1,45 @@
 'use server';
 import { Box, Typography } from '@mui/material';
-import {
-  serviceImage,
-  findOneService,
-  findAllByCategoryNameOrServiceName,
-} from '@/app/actions/services-actions';
-import ServiceImagesButton from './ui/ServiceImagesButton';
-import ServiceWspButton from './ui/ServiceWspButton';
-import SearchTermInput from './ui/SearchTermInput';
-import ServiceMiniCard from './ui/ServiceMiniCard';
-import HorizontalScroll from '@/components/HorizontalScroll';
 
-export default async function ServicesPage({
+
+import {
+  productImage,
+  findOneProduct,
+  findAllByCategoryNameOrProductName,
+} from '@/app/actions/products-actions';
+
+import SearchTermInput from './ui/SearchTermInput';
+
+import HorizontalScroll from '@/components/HorizontalScroll';
+import ProductMiniCard from './ui/ProductMiniCard';
+import ProductImagesButton from './ui/ProductImagesButton';
+import ProductWspButton from './ui/ProductWspButton';
+
+export default async function ProductsPage({
   searchParams,
 }: {
   searchParams: any;
 }) {
-  const { serviceId, searchTerm } = searchParams;
+  const { productId, searchTerm } = searchParams;
 
   // Obtener la imagen del servicio
-  const img = await serviceImage(serviceId);
+  const img = await productImage(productId);
 
   const urlImage = (imageName: string) => {
-    return `http://localhost:3002/images/services/${imageName}`;
+    return `http://localhost:3002/images/products/${imageName}`;
   };
 
-  const service = await findOneService(serviceId);
-  const { name, description, price, category } = service;
+  const product = await findOneProduct(productId);
+  const { name, description, price, category, whatsapp } = product;
 
-  const servicesList = await findAllByCategoryNameOrServiceName(
+  const productList = await findAllByCategoryNameOrProductName(
     searchTerm ? searchTerm : '',
   );
-  const servicesMiniCardList = servicesList.map((service: any) => (
-    <ServiceMiniCard
-      name={service.name}
-      price={service.price}
-      id={service.id}
+  const productsMiniCardList = productList.map((product: any) => (
+    <ProductMiniCard
+      id={product.id}
+      name={product.name}
+      price={product.price}
     />
   ));
 
@@ -117,8 +121,8 @@ export default async function ServicesPage({
                 flexDirection={'column'}
                 justifyContent={'space-between'}
               >
-                <ServiceImagesButton />
-                <ServiceWspButton number={service.whatsapp} />
+                <ProductImagesButton />
+                <ProductWspButton number={whatsapp} />
               </Box>
             </Box>
 
@@ -146,7 +150,7 @@ export default async function ServicesPage({
       <Box className="loader" width={'100%'} />
 
       <Box>
-        <HorizontalScroll listItems={servicesMiniCardList} />
+        <HorizontalScroll listItems={productsMiniCardList} />
       </Box>
     </>
   );

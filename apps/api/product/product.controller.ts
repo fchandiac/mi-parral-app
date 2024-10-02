@@ -50,4 +50,10 @@ export class ProductController {
     async update(@Body() dto: UpdateProductDto): Promise<ProductEntity> {
       return this.productService.update(dto);
     }
+
+
+    @Get('/findAllByCategoryNameOrProductName')
+    async findAllByCategoryNameOrProductName(@Query('searchTerm') searchTerm: string): Promise<ProductEntity[]> {
+      return this.productService.findAllByCategoryNameOrProductName(searchTerm);
+    }
 }

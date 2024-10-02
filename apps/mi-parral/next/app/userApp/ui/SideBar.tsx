@@ -70,30 +70,44 @@ export default function SideBar({ open, toggleDrawer }: UserSideBarProps) {
               <Typography fontSize={12}>{session?.user?.email}</Typography>
             </Grid>
             <Grid item>
-              <Avatar alt="Avatar" src={session?.user?.image} sx={{
-                color: 'white',
-              }} />
+              <Avatar
+                alt="Avatar"
+                src={session?.user?.image}
+                sx={{
+                  color: 'white',
+                }}
+              />
             </Grid>
           </Grid>
         </Box>
         <Divider />
         <List>
-        <ListItem disablePadding>
-            <MenuItem sx={{ width: '100%' }}
-          
+          <ListItem disablePadding>
+            <MenuItem
+              sx={{ width: '100%' }}
               onClick={() => {
                 router.push('/userApp');
                 toggleDrawer(false);
               }}
             >
-            <HomeIcon />
+              <HomeIcon />
             </MenuItem>
           </ListItem>
           <ListItem disablePadding>
             <MenuItem sx={{ width: '100%' }}>Descuentos</MenuItem>
           </ListItem>
-          <ListItem disablePadding
-          >
+          <ListItem disablePadding>
+            <MenuItem
+              onClick={() => {
+                router.push('/userApp/products');
+                toggleDrawer(false);
+              }}
+              sx={{ width: '100%' }}
+            >
+              Productos
+            </MenuItem>
+          </ListItem>
+          <ListItem disablePadding>
             <MenuItem
               onClick={() => {
                 router.push('/userApp/services');
@@ -111,14 +125,14 @@ export default function SideBar({ open, toggleDrawer }: UserSideBarProps) {
         <List>
           <ListItem disablePadding>
             <Typography paddingLeft={2} paddingTop={1}>
-              Mi cuenta
+              Publicar
             </Typography>
           </ListItem>
           <ListItem>
             <MenuItem
               sx={{ width: '100%', paddingLeft: 2 }}
               onClick={() => {
-                router.push('/userApp/account/products');
+                router.push('/userApp/posts/products');
                 toggleDrawer(false);
               }}
             >
@@ -129,7 +143,7 @@ export default function SideBar({ open, toggleDrawer }: UserSideBarProps) {
             <MenuItem
               sx={{ width: '100%', paddingLeft: 2 }}
               onClick={() => {
-                router.push('/userApp/account/services');
+                router.push('/userApp/posts/services');
                 toggleDrawer(false);
               }}
             >
@@ -140,7 +154,7 @@ export default function SideBar({ open, toggleDrawer }: UserSideBarProps) {
             <MenuItem
               sx={{ width: '100%', paddingLeft: 2 }}
               onClick={() => {
-                router.push('/userApp/account/commerces');
+                router.push('/userApp/posts/commerces');
                 toggleDrawer(false);
               }}
             >
@@ -149,11 +163,12 @@ export default function SideBar({ open, toggleDrawer }: UserSideBarProps) {
           </ListItem>
 
           <ListItem disablePadding>
-            <MenuItem sx={{ width: '100%' }} 
-            onClick={()=> {
-              router.push('/userApp/profile');
-              toggleDrawer(false);
-            }}
+            <MenuItem
+              sx={{ width: '100%' }}
+              onClick={() => {
+                router.push('/userApp/profile');
+                toggleDrawer(false);
+              }}
             >
               Mi perfil
             </MenuItem>

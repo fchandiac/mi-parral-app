@@ -1,19 +1,14 @@
 'use client';
 import { useState } from 'react';
-import { Box, Button, IconButton, Skeleton } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ImageSkeleton from '@/components/ImageSkeleton';
-import StarIcon from '@mui/icons-material/Star';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { setPrincipalCommerceImage, deleteCommerceImage } from '@/app/actions/commerces-actions';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIos';
+import ImageSkeleton from '../../../../components/ImageSkeleton';
 
 interface Image {
   id: string;
-  commerceId: string;
-  image: string;
-  principal: boolean;
+  serviceId: string;
+  image: string; // URL de la imagen
 }
 
 interface ImageSliderProps {
@@ -22,41 +17,28 @@ interface ImageSliderProps {
 
 const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  
   const urlImage = (imageName: string) => {
     return `http://localhost:3002/images/products/${imageName}`;
   };
 
-  const setPrincipalIamage = async (commerceId: string, imageId: string) => {
-    // const update = await setPrincipalCommerceImage(commerceId, imageId);
-  }
-
-  const deleteImage = async (imageId: string) => {
-    // const deleted = await deleteCommerceImage(imageId);
-  }
-
-
-
-
   // Avanzar al siguiente slide
   const nextSlide = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1,
+      prevIndex === images.length - 1 ? 0 : prevIndex + 1
     );
   };
 
   // Retroceder al slide anterior
   const prevSlide = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1,
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
     );
   };
 
   return (
     <Box sx={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
       {images.length === 0 ? (
-        // Mostrar Skeleton cuando no hay imágenes
-       <ImageSkeleton />
+        <ImageSkeleton />
       ) : (
         <>
           {/* Contenedor de Imagen */}
@@ -76,9 +58,9 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
               src={urlImage(images[currentIndex].image)} // Accede a la URL de la imagen
               alt={`Slide ${currentIndex + 1}`}
               sx={{
-                width: '100%', // Asegura que la imagen ocupe todo el ancho del contenedor
-                height: '100%', // Asegura que la imagen ocupe toda la altura del contenedor
-                objectFit: 'cover', // Ajusta la imagen para cubrir todo el contenedor, recortando si es necesario
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover', // Mantiene el aspecto sin recortar la imagen
               }}
             />
           </Box>
@@ -99,8 +81,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
               },
             }}
           >
-       
-                <ArrowBackIosNewIcon />
+            <ArrowBackIosNewIcon />
           </Button>
 
           {/* Botón para avanzar */}
@@ -119,46 +100,8 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
               },
             }}
           >
-               <ArrowForwardIosIcon />
+            <ArrowForwardIosIcon />
           </Button>
-
-          <IconButton
-          size="small"
-          onClick={() => setPrincipalIamage(images[currentIndex].commerceId, images[currentIndex].id)}
-          sx={{
-            position: 'absolute',
-            right:  0,
-            bottom: 0,
-            mr: 7,
-            mb: 1,
-            backgroundColor: 'rgba(0,0,0,0.2)',
-            color: 'white',
-            '&:hover': {
-              backgroundColor: 'rgba(0,0,0,0.7)',
-            }
-          }}
-          >
-            {images[currentIndex].principal ? <StarIcon /> : <StarBorderIcon />}
-          </IconButton>
-
-          <IconButton
-          size='small'
-          onClick={() => deleteImage(images[currentIndex].id)}
-          sx={{
-            position: 'absolute',
-            right:  0,
-            bottom: 0,
-            mr: 1,
-            mb: 1,
-            backgroundColor: 'rgba(0,0,0,0.2)',
-            color: 'white',
-            '&:hover': {
-              backgroundColor: 'rgba(0,0,0,0.7)',
-            },
-          }}
-          >
-            <DeleteIcon />
-          </IconButton>
         </>
       )}
     </Box>

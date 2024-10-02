@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { ProductEntity } from '../../libs/entities/products/product.entity';
 import { CreateProductDto } from '../../libs/dto/product/create-product.dto';
 import { ByIdDto } from 'apps/libs/dto/common/by-id.dto';
@@ -78,6 +78,25 @@ export class ProductService {
     const updatedProduct = this.productRepository.merge(product, dto);
     return this.productRepository.save(updatedProduct);
   }
+
+  async findAllByCategoryNameOrProductName(searchTerm: string): Promise<ProductEntity[]> {
+    // Si el término de búsqueda es una cadena vacía, devuelve todos los productos
+    if (!searchTerm) {
+      return this.productRepository.find({
+        relations: ['category'],
+      });
+    }
+  
+    // Si hay un término de búsqueda, filtra por nombre de categoría o nombre del producto
+    return this.productRepository.find({
+      where: [
+        { category: { name: ILike(`%${searchTerm}%`) } }, // Búsqueda por nombre de categoría
+        { name: ILike(`%${searchTerm}%`) },               // Búsqueda por nombre del producto
+      ],
+      relations: ['category'],
+    });
+  }
+  
 
 
 }
