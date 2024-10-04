@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/sign-in/ui/LoginForm.tsx", "app/sign-in/ui/FormSkeleton.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/sign-in/ui/LoginForm.tsx", "app/sign-in/ui/FormSkeleton.jsx", "components/HorizontalAutoScrolltsx"],
   "exclude": ["node_modules"]
 }

@@ -124,6 +124,7 @@ export const findAllServices = async () => {
     headers: {
       'Content-Type': 'application/json',
     },
+    cache: 'no-store'
   });
 
   revalidatePath('/userApp/services/layout');
@@ -154,6 +155,7 @@ export const serviceImage = async (serviceId: string) => {
       headers: {
         'Content-Type': 'application/json',
       },
+      cache: 'no-store'
     },
   );
   revalidatePath('/userApp/account/services/ui/ServiceCard');

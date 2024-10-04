@@ -8,6 +8,7 @@ import Footer from './ui/Footer';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { findRandomService } from '../actions/services-actions';
 import { findRandomProduct } from '../actions/products-actions';
+import { findRandomCommerce } from '../actions/commerces-actions';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [openSideBar, setOpenSideBar] = useState(false);
@@ -32,6 +33,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
     const querySerivceId = searchParams.get('serviceId');
     const queryProductId = searchParams.get('productId');
+    const queryCommerceId = searchParams.get('commerceId');
 
     const randomService = async () => {
       const service = await findRandomService();
@@ -42,12 +44,27 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       const product = await findRandomProduct();
       updateSearchParam('productId', product.id);
     }
+
+    const randomCommerce = async () => {
+      const commerce = await findRandomCommerce();
+      updateSearchParam('commerceId', commerce.id);
+    }
+
+
     if (!querySerivceId && pathname === '/userApp/services') {
       randomService();
     }
 
     if (!queryProductId && pathname === '/userApp/products') {
       ramdomProduct();
+    }
+
+    if (!queryCommerceId && pathname === '/userApp/commerces') {
+      randomCommerce();
+    }
+
+    if (!querySerivceId && pathname === '/userApp') {
+      randomService();
     }
 
     

@@ -46,6 +46,7 @@ import {
     async getImage(
       @Query('commerceId') commerceId: string,
     ): Promise<CommerceImageEntity> {
+      
       return await this.commerceService.findPrincipalImage(commerceId);
     }
   

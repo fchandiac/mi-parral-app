@@ -7,6 +7,7 @@ import { unlink, access } from 'fs/promises';
 import { CommerceImageEntity } from '../../libs/entities/images/commerce-image.entity';
 import { UploadCommerceImageDto } from 'apps/libs/dto/images/upload-commerce-image.dto';
 import { SetPrincipalCommerceImageDto } from 'apps/libs/dto/images/set-principal-commerce-image-dto';
+import { envs } from 'apps/libs/config';
 
 @Injectable()
 export class CommerceService {
@@ -67,7 +68,14 @@ export class CommerceService {
     });
 
     if (!image) {
-      throw new NotFoundException('Principal image not found');
+      return {
+        id: null,
+        commerceId,
+        image: envs.images.defaultImageUrl,
+        principal: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
     }
     return image;
   }

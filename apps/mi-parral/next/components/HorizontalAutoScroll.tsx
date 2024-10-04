@@ -1,15 +1,28 @@
-// components/HorizontalScroll.tsx
+// components/HorizontalAutoScroll.tsx
 'use client';
 import React, { Suspense, useEffect, useRef, useState } from 'react';
 
 interface HorizontalScrollProps {
-  listItems: React.JSX.Element[]; // Acepta un array de ReactNode
+  listItems: React.JSX.Element[];
 }
 
-const HorizontalScroll: React.FC<HorizontalScrollProps> = ({ listItems }) => {
+const HorizontalAutoScroll: React.FC<HorizontalScrollProps> = ({ listItems }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [items, setItems] = useState<React.JSX.Element[]>(listItems); // Inicializa con la lista completa
-  const [isLoading, setIsLoading] = useState(false); // Controla el estado de carga
+  const [items, setItems] = useState<React.JSX.Element[]>(listItems);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Efecto para manejar el auto-scroll lento
+  useEffect(() => {
+    const autoScroll = () => {
+      if (scrollRef.current) {
+        scrollRef.current.scrollLeft += 1; // Desplaza 1 píxel cada vez para un movimiento lento
+      }
+    };
+
+    const intervalId = setInterval(autoScroll, 50); // Ajusta el tiempo para controlar la velocidad del scroll
+
+    return () => clearInterval(intervalId); // Limpia el intervalo cuando se desmonta el componente
+  }, []);
 
   // Efecto para manejar el scroll infinito
   useEffect(() => {
@@ -19,12 +32,11 @@ const HorizontalScroll: React.FC<HorizontalScrollProps> = ({ listItems }) => {
 
         // Umbral de 100 píxeles antes de llegar al final del scroll
         if (scrollLeft >= scrollWidth - clientWidth - 100 && !isLoading) {
-          setIsLoading(true); // Evitar múltiples disparos al mismo tiempo
+          setIsLoading(true);
           setTimeout(() => {
-            // Simula carga al agregar los mismos elementos al final
             setItems((prevItems) => [...prevItems, ...listItems]);
             setIsLoading(false);
-          }, 300); // Tiempo de espera antes de agregar más elementos
+          }, 300); // Simula un retraso de carga
         }
       }
     };
@@ -43,7 +55,7 @@ const HorizontalScroll: React.FC<HorizontalScrollProps> = ({ listItems }) => {
 
   // Efecto para resetear la lista cuando los elementos cambian
   useEffect(() => {
-    setItems(listItems); // Restablece a la lista original
+    setItems(listItems);
   }, [listItems]);
 
   return (
@@ -62,4 +74,4 @@ const HorizontalScroll: React.FC<HorizontalScrollProps> = ({ listItems }) => {
   );
 };
 
-export default HorizontalScroll;
+export default HorizontalAutoScroll;

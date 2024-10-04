@@ -40,6 +40,8 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
         return 'Mi perfil';
       case '/userApp/products':
         return 'Productos';
+      case '/userApp/commerces':
+        return 'Comercios';
       default:
         return pathname;
     }

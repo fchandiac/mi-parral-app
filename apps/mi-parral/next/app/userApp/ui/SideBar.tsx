@@ -120,6 +120,19 @@ export default function SideBar({ open, toggleDrawer }: UserSideBarProps) {
               Servicios
             </MenuItem>
           </ListItem>
+          <ListItem disablePadding>
+            <MenuItem
+              onClick={() => {
+                router.push('/userApp/commerces');
+                toggleDrawer(false);
+              }}
+              sx={{
+                width: '100%',
+              }}
+            >
+              Comercios
+            </MenuItem>
+          </ListItem>
         </List>
         <Divider />
         <List>

@@ -160,3 +160,55 @@ export const updateCommerce = async (commerce: UpdateCommerceType) => {
   revalidatePath('/userApp/account/commerces/ui/CommerceCard');
   return response.json();
 }
+
+export const findOneCommerce = async (commerceId: string) => {
+  const response = await fetch(`${apiUrl}/commerces/findOne?id=${commerceId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  return response.json();
+}
+
+
+export const findAllByCategoryNameOrCommerceName = async (searchTerm: string) => {
+  const response = await fetch(`${apiUrl}/commerces/findAllByCategoryNameOrCommerceName?searchTerm=${searchTerm}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  return response.json();
+}
+
+export const commerceImages = async (commerceId: string) => {
+  const response = await fetch(`${imagesUrl}/commerce/images?commerceId=${commerceId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  return response.json();
+}
+
+export const commerceImage = async (commerceId: string) => {
+  const response = await fetch(`${imagesUrl}/commerce/image?commerceId=${commerceId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    cache: 'no-store',
+  });
+  return response.json();
+}
+
+export const findRandomCommerce = async () => {
+  const response = await fetch(`${apiUrl}/commerces/findRandom`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  return response.json();
+}

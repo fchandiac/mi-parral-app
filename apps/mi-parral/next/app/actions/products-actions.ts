@@ -157,6 +157,7 @@ export const productImage = async (productId: string) => {
       headers: {
         'Content-Type': 'application/json',
       },
+      cache: 'no-store'
     },
   );
   revalidatePath('/userApp/account/products/ui/ProductCard');

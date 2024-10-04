@@ -41,6 +41,11 @@ export class CommerceController {
     return this.commerceService.findRandom();
   }
 
+  @Get('/findAllByCategoryNameOrCommerceName')
+  async findAllByCategoryNameOrCommerceName(@Query('searchTerm') searchTerm: string): Promise<CommerceEntity[]> {
+    return this.commerceService.findAllByCategoryNameOrCommerceName(searchTerm);
+  }
+
   //UPDATE
   @Put()
   async update(

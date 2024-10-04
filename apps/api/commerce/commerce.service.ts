@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { ByIdDto } from 'apps/libs/dto/common/by-id.dto';
 import { CreateCommerceDto } from 'apps/libs/dto/commerce/create-commerce.dto';
 import { CommerceEntity } from 'apps/libs/entities/commerces/commerce.entity';
@@ -45,6 +45,22 @@ export class CommerceService {
     return commerce;
   }
 
+  async findAllByCategoryNameOrCommerceName(searchTerm: string): Promise<CommerceEntity[]> {
+    if (!searchTerm) {
+      return this.commerceRepository.find({
+        relations: ['category'],
+      });
+    }
+    return this.commerceRepository.find({
+      where: [
+        { category: { name: ILike(`%${searchTerm}%`) } },
+        { name: ILike(`%${searchTerm}%`) },
+      ],
+      relations: ['category'],
+    });
+  }
+
+
   async findAllByUserId(dto: ByIdDto): Promise<CommerceEntity[]> {
     const commerces = await this.commerceRepository.find({
       where: { userId: dto.id },
@@ -79,6 +95,6 @@ export class CommerceService {
 
 
 
- 
+
 
   // Eliminar un servicio por ID
