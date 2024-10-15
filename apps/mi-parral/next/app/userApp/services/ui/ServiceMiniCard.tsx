@@ -1,6 +1,7 @@
 import { serviceImage } from '@/app/actions/services-actions';
 import { Box, Typography } from '@mui/material';
 import ImageMiniServiceCard from './ImageMiniServiceCard';
+const imagesUrl = process.env.NEXT_PUBLIC_IMAGES_BACKEND_URL;
 
 interface ServiceMiniCardProps {
   id: string;
@@ -14,7 +15,7 @@ export default async function ServiceMiniCard({
   price,
 }: ServiceMiniCardProps) {
   const urlImage = (imageName: string) => {
-    return `http://localhost:9002/images/services/${imageName}`;
+    return `${imagesUrl}/images/services/${imageName}`;
   };
 
   const image = await serviceImage(id);

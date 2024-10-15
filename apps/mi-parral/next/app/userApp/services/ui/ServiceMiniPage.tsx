@@ -2,6 +2,7 @@ import { Box, Typography } from '@mui/material';
 import React from 'react';
 import ServiceImagesButton from './ServiceImagesButton';
 import ServiceWspButton from './ServiceWspButton';
+const imagesUrl = process.env.NEXT_PUBLIC_IMAGES_BACKEND_URL;
 
 export interface ServiceMiniPageProps {
   id: string | undefined | null;
@@ -25,7 +26,7 @@ export default function ServiceMiniPage({
 
 
   const urlImage = (imageName: string) => {
-    return `http://localhost:3002/images/services/${imageName}`;
+    return `${imagesUrl}/images/services/${imageName}`;
   };
 
   return (

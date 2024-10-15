@@ -24,7 +24,7 @@ export default {
       authorize: async (credentials) => {
         try {
           const { email, password } = credentials;
-          const fetchUser = await fetch( process.env.AUTH_BACKEND_URL + '/signIn', {
+          const fetchUser = await fetch( process.env.NEXT_PUBLIC_AUTH_BACKEND_URL + '/signIn', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

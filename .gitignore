@@ -41,6 +41,7 @@ lerna-debug.log*
 .env.test.local
 .env.production.local
 .env.local
+.env.template
 
 # temp directory
 .temp
@@ -62,6 +63,7 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 # Ignorar archivos de configuración o temporales que no deban publicarse
 apps/mi-parral/next/.env
 apps/mi-parral/next/.env.local
+apps/mi-parral/next/.env.template
 apps/mi-parral/next/.env.development
 apps/mi-parral/next/.env.production
 
