@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'mi-app-nest', // Nombre de la aplicación
+      name: 'backendMiparral', // Nombre de la aplicación
       script: 'dist/apps/api/main.js', // Ruta al archivo de entrada compilado
       instances: 1, // Usar el número máximo de núcleos de CPU disponibles
       exec_mode: 'cluster', // Ejecutar en modo clúster
@@ -25,7 +25,7 @@ module.exports = {
     },
     {
       name: 'authMiParral', // Nombre de la aplicación
-      script: 'dist/apps/auth/main.js', // Ruta al archivo de entrada compilado
+      script: 'dist/apps/auth-app/main.js', // Ruta al archivo de entrada compilado
       instances: 1, // Usar el número máximo de núcleos de CPU disponibles
       exec_mode: 'cluster', // Ejecutar en modo clúster
       env: {
@@ -48,7 +48,7 @@ module.exports = {
     },
     {
       name: 'imagesMiParral', // Nombre de la aplicación
-      script: 'dist/apps/images/main.js', // Ruta al archivo de entrada compilado
+      script: 'dist/apps/images-app/main.js', // Ruta al archivo de entrada compilado
       instances: 1, // Usar el número máximo de núcleos de CPU disponibles
       exec_mode: 'cluster', // Ejecutar en modo clúster
       env: {
