@@ -211,7 +211,7 @@ export const updateService = async (service: UpdataServiceType) => {
     },
     body: JSON.stringify(service),
   });
-  revalidatePath('/userApp/account/services/ui/ServiceCard');
+  revalidatePath('/userApp/posts/services/ui/ServiceCard');
   return response.json();
 };
 
