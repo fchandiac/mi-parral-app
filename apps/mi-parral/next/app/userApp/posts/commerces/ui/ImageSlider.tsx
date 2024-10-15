@@ -8,6 +8,7 @@ import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { setPrincipalCommerceImage, deleteCommerceImage } from '@/app/actions/commerces-actions';
+const imagesUrl = process.env.NEXT_PUBLIC_IMAGES_BACKEND_URL;
 
 interface Image {
   id: string;
@@ -24,7 +25,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   
   const urlImage = (imageName: string) => {
-    return `http://localhost:9002/images/commerces/${imageName}`;
+    return `${imagesUrl}/images/commerces/${imageName}`;
   };
 
   const setPrincipalIamage = async (commerceId: string, imageId: string) => {

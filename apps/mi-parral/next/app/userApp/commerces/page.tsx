@@ -8,7 +8,7 @@ import SearchTermInput from './ui/SearchTermInput';
 import CommerceMiniCard from './ui/CommerceMiniCard';
 import CommerceImagesButton from './ui/CommerceImagesButton';
 import CommerceWspButton from './ui/CommerceWspButton';
-
+const imagesUrl = process.env.NEXT_PUBLIC_IMAGES_BACKEND_URL;
 import HorizontalScroll from '@/components/HorizontalScroll';
 import MapButton from './ui/MapButton';
 import { Suspense } from 'react';
@@ -25,7 +25,7 @@ export default async function ProductsPage({
   console.log('img', img);
 
   const urlImage = (imageName: string) => {
-    return `http://localhost:9002/images/commerces/${imageName}`;
+    return `${imagesUrl}/images/commerces/${imageName}`;
   };
 
   const commerce = await findOneCommerce(commerceId);

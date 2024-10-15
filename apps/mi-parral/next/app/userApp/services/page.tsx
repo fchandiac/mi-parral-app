@@ -10,6 +10,7 @@ import ServiceWspButton from './ui/ServiceWspButton';
 import SearchTermInput from './ui/SearchTermInput';
 import ServiceMiniCard from './ui/ServiceMiniCard';
 import HorizontalScroll from '@/components/HorizontalScroll';
+const imagesUrl = process.env.NEXT_PUBLIC_IMAGES_BACKEND_URL;
 
 export default async function ServicesPage({
   searchParams,
@@ -22,7 +23,7 @@ export default async function ServicesPage({
   const img = await serviceImage(serviceId);
 
   const urlImage = (imageName: string) => {
-    return `http://localhost:9002/images/services/${imageName}`;
+    return `${imagesUrl}/images/services/${imageName}`;
   };
 
   const service = await findOneService(serviceId);

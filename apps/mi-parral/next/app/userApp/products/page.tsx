@@ -1,7 +1,7 @@
 'use server';
 import { Box, Typography } from '@mui/material';
 
-
+const imagesUrl = process.env.NEXT_PUBLIC_IMAGES_BACKEND_URL;
 import {
   productImage,
   findOneProduct,
@@ -26,7 +26,7 @@ export default async function ProductsPage({
   const img = await productImage(productId);
 
   const urlImage = (imageName: string) => {
-    return `http://localhost:9002/images/products/${imageName}`;
+    return `${imagesUrl}/images/products/${imageName}`;
   };
 
   const product = await findOneProduct(productId);

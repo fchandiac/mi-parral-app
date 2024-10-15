@@ -4,6 +4,7 @@ import { Box, Button } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIos';
 import ImageSkeleton from './ImageSkeleton';
+const imagesUrl = process.env.NEXT_PUBLIC_IMAGES_BACKEND_URL;
 
 interface Image {
   id: string;
@@ -18,7 +19,7 @@ interface ImageSliderProps {
 const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const urlImage = (imageName: string) => {
-    return `http://localhost:9002/images/services/${imageName}`;
+    return  `${imagesUrl}/images/services/${imageName}`;
   };
 
   // Avanzar al siguiente slide

@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import ImageMiniProductCard from './ImageMiniProductCard';
 import { productImage } from '@/app/actions/products-actions';
-
+const imagesUrl = process.env.NEXT_PUBLIC_IMAGES_BACKEND_URL;
 
 interface ProductMiniCardProps {
   id: string;
@@ -16,7 +16,7 @@ export default async function ProductMiniCard({
 }: ProductMiniCardProps) {
 
   const urlImage = (imageName: string) => {
-    return `http://localhost:9002/images/products/${imageName}`;
+    return `${imagesUrl}/images/products/${imageName}`;
   };
 
   const image = await productImage(id);

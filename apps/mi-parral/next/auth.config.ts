@@ -4,8 +4,6 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 
 
-//'http://localhost:9001/auth/signIn'
-//process.env.AUTH_BACKEND_URL +  '/signIn'
 
 export default {
   providers: [

@@ -4,11 +4,12 @@ import { validateUser, registerGoogleUser } from './app/actions/auth-actions';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
+
   session: {
     strategy: 'jwt',
   },
-  trustHost: true,
 
+  trustHost: true,
   callbacks: {
     jwt: async ({ token, user, account, profile, isNewUser }) => {
       return token;
