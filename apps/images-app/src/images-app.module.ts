@@ -29,7 +29,7 @@ import { ProductService } from '../product/product.service';
     }),
     TypeOrmModule.forFeature([ServiceImageEntity, CommerceImageEntity, ProductImageEntity]),  // Manejo de entidades
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'images'),
+      rootPath: join(__dirname, '../../../../storageMiParral/images'),
       serveRoot: '/images'  // Carpeta donde se guardan los archivos
     }),
   ],
