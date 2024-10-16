@@ -1,13 +1,12 @@
 'use client';
 import { Box } from '@mui/material';
 import React from 'react';
-import { useSearchParams, useRouter, usePathname  } from 'next/navigation';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 
-
-export interface ImageMiniServiceCardType  {
-    serviceId: string;
-    imageUrl: string;
-    children: React.ReactNode;
+export interface ImageMiniServiceCardType {
+  serviceId: string;
+  imageUrl: string;
+  children: React.ReactNode;
 }
 
 const ImageMiniServiceCard: React.FC<ImageMiniServiceCardType> = ({
@@ -15,16 +14,16 @@ const ImageMiniServiceCard: React.FC<ImageMiniServiceCardType> = ({
   imageUrl,
   children,
 }) => {
-
-    const { replace } = useRouter();
-    const searchParams = useSearchParams();
-    const pathname = usePathname();
-;
-
-      // Función para actualizar los parámetros de búsqueda
+  const { replace } = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  // Función para actualizar los parámetros de búsqueda
   const updateSearchParam = (key: string, value: string | null) => {
     const params = new URLSearchParams(searchParams.toString()); // Asegúrate de convertir query a cualquier tipo necesario
-    if (value !== "" && value !== null) {
+    // Añadir el nuevo parámetro 'showService'
+    params.set('showService', 'true');
+
+    if (value !== '' && value !== null) {
       params.set(key, value);
     } else {
       params.delete(key);
@@ -34,18 +33,16 @@ const ImageMiniServiceCard: React.FC<ImageMiniServiceCardType> = ({
     replace(`${pathname}?${params.toString()}`);
   };
 
-
-
   return (
     <Box
-    onClick={() => updateSearchParam('serviceId', serviceId)}
+      onClick={() => updateSearchParam('serviceId', serviceId)}
       sx={{
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'flex-end',
         height: '20vh',
         width: '20vh',
-  
+
         borderRadius: 3,
         backgroundImage: `url(${imageUrl})`, // Usa la propiedad image para el background
         backgroundSize: 'cover',
@@ -65,15 +62,3 @@ const ImageMiniServiceCard: React.FC<ImageMiniServiceCardType> = ({
 export default ImageMiniServiceCard;
 
 
-// const updateSearchParam = (key, value) => {
-//     const params = new URLSearchParams(searchParams.toString());
-//     if (value !== "" && value !== null) {
-//       params.set("page", 1);
-//       params.set("startDate", startDate);
-//       params.set(key, value);
-//     } else {
-//       params.delete(key);
-//     }
-
-//     replace(`${pathname}?${params.toString()}`);
-//   };

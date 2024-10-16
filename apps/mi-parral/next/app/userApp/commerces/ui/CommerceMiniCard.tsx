@@ -16,7 +16,7 @@ export default async function CommerceMiniCard({
 }: CommerceMiniCardProps) {
 
   const urlImage = (imageName: string) => {
-    return `${imagesUrl}/images/products/${imageName}`;
+    return `${imagesUrl}/images/commerces/${imageName}`;
   };
 
   const image = await commerceImage(id);

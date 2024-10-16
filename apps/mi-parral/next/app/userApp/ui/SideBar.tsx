@@ -4,9 +4,11 @@ import * as React from 'react';
 import {
   Avatar,
   Box,
+  Button,
   Divider,
   Drawer,
   Grid,
+  IconButton,
   List,
   ListItem,
   ListItemIcon,
@@ -65,38 +67,66 @@ export default function SideBar({ open, toggleDrawer }: UserSideBarProps) {
           />
         </Box>
         <Box>
-          <Grid container padding={2} spacing={1}>
-            <Grid item>
-              <Typography fontSize={12}>{session?.user?.name}</Typography>
-              <Typography fontSize={12}>{session?.user?.email}</Typography>
-            </Grid>
+          <Grid
+            container
+            padding={2}
+            spacing={1}
+            direction={'column'}
+            alignItems={'center'}
+          >
             <Grid item>
               <Avatar
                 alt="Avatar"
-                src={session?.user?.image || undefined} 
+                src={session?.user?.image || undefined}
                 sx={{
                   color: 'white',
                 }}
               />
             </Grid>
+            <Grid item textAlign={'center'}>
+              <Typography fontSize={12}>{session?.user?.name}</Typography>
+              <Typography fontSize={12}>{session?.user?.email}</Typography>
+            </Grid>
+            <Grid item>
+              <Button
+                variant="contained"
+                size="small"
+                onClick={() => {
+                  router.push('/userApp/profile');
+                  toggleDrawer(false);
+                }}
+              >
+                Mi perfil
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                variant="outlined"
+                size="small"
+                onClick={() => {
+                  router.push('/userApp');
+                  toggleDrawer(false);
+                }}
+                sx={{
+                  width: 40, // Establece el ancho del botón
+                  height: 40, // Establece la misma altura para hacerlo circular
+                  borderRadius: '50%', // Borde redondeado completo
+                  minWidth: 0, // Elimina el ancho mínimo para el botón
+                  padding: 0, // Ajusta el padding si es necesario
+                }}
+              >
+                <HomeIcon />
+              </Button>
+            </Grid>
           </Grid>
         </Box>
         <Divider />
+
+        <Typography paddingRight={2} paddingTop={1} textAlign={'right'}>
+          <strong>Explorar</strong>
+        </Typography>
+
         <List>
-          <ListItem disablePadding>
-            <MenuItem
-              sx={{ width: '100%' }}
-              onClick={() => {
-                router.push('/userApp');
-                toggleDrawer(false);
-              }}
-            >
-              <HomeIcon />
-            </MenuItem>
-          </ListItem>
-          {/* <ListItem disablePadding>
-            <MenuItem sx={{ width: '100%' }}>Descuentos</MenuItem>
-          </ListItem> */}
           <ListItem disablePadding>
             <MenuItem
               onClick={() => {
@@ -135,14 +165,12 @@ export default function SideBar({ open, toggleDrawer }: UserSideBarProps) {
             </MenuItem>
           </ListItem>
         </List>
-        <Divider />
-        <List>
-          <ListItem disablePadding>
-            <Typography paddingLeft={2} paddingTop={1}>
-              Publicar
-            </Typography>
-          </ListItem>
 
+        <Divider />
+        <Typography paddingRight={2} paddingTop={1} textAlign={'right'}>
+          <strong>Administrar</strong>
+        </Typography>
+        <List>
           {/* <ListItem disablePadding>
             <MenuItem
               sx={{ width: '100%', paddingLeft: 2 }}
@@ -163,7 +191,7 @@ export default function SideBar({ open, toggleDrawer }: UserSideBarProps) {
                 toggleDrawer(false);
               }}
             >
-              publica Productos
+              mis Productos
             </MenuItem>
           </ListItem>
           <ListItem disablePadding>
@@ -174,7 +202,7 @@ export default function SideBar({ open, toggleDrawer }: UserSideBarProps) {
                 toggleDrawer(false);
               }}
             >
-              publica Servicios
+              mis Servicios
             </MenuItem>
           </ListItem>
           <ListItem disablePadding>
@@ -185,28 +213,23 @@ export default function SideBar({ open, toggleDrawer }: UserSideBarProps) {
                 toggleDrawer(false);
               }}
             >
-              publica Comercios
-            </MenuItem>
-          </ListItem>
-
-          <ListItem disablePadding>
-            <MenuItem
-              sx={{ width: '100%' }}
-              onClick={() => {
-                router.push('/userApp/profile');
-                toggleDrawer(false);
-              }}
-            >
-              Mi perfil
-            </MenuItem>
-          </ListItem>
-
-          <ListItem disablePadding>
-            <MenuItem sx={{ width: '100%' }} onClick={() => signOut()}>
-              Cerrar sesión
+              mis Comercios
             </MenuItem>
           </ListItem>
         </List>
+        <Divider />
+        <Grid
+          container
+          justifyContent={'center'}
+          direction={'column'}
+          spacing={1}
+        >
+          <Grid item textAlign={'center'} marginTop={1}>
+            <Button variant="contained" size="small" onClick={() => signOut()}>
+              Cerrar sesión
+            </Button>
+          </Grid>
+        </Grid>
       </Drawer>
     </Box>
   );

@@ -2,7 +2,7 @@
 import MuiApp from '@/mui/MuiApp';
 import Navbar from './ui/Navbar';
 import SideBar from './ui/SideBar';
-import { use, useState, useEffect } from 'react';
+import { use, useState, useEffect, Suspense } from 'react';
 import { Box } from '@mui/material';
 import Footer from './ui/Footer';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
@@ -28,9 +28,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     replace(`${pathname}?${params.toString()}`);
   };
 
-
   useEffect(() => {
-
     const querySerivceId = searchParams.get('serviceId');
     const queryProductId = searchParams.get('productId');
     const queryCommerceId = searchParams.get('commerceId');
@@ -43,13 +41,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     const ramdomProduct = async () => {
       const product = await findRandomProduct();
       updateSearchParam('productId', product.id);
-    }
+    };
 
     const randomCommerce = async () => {
       const commerce = await findRandomCommerce();
       updateSearchParam('commerceId', commerce.id);
-    }
-
+    };
 
     if (!querySerivceId && pathname === '/userApp/services') {
       randomService();
@@ -67,27 +64,28 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       randomService();
       updateSearchParam('showService', 'false');
       ramdomProduct();
+      updateSearchParam('showProduct', 'false');
       randomCommerce();
+      updateSearchParam('showCommerce', 'false');
     }
-
-    
   }, [pathname]);
-
 
   return (
     <>
-      <MuiApp>
-        <Navbar onMenuClick={() => setOpenSideBar(true)} />
-        <Box>{children}</Box>
-        <Footer />
+ 
+        <MuiApp>
+          <Navbar onMenuClick={() => setOpenSideBar(true)} />
+          <Box>{children}</Box>
+          <Footer />
 
-        <SideBar
-          open={openSideBar}
-          toggleDrawer={() => {
-            setOpenSideBar(!open);
-          }}
-        />
-      </MuiApp>
+          <SideBar
+            open={openSideBar}
+            toggleDrawer={() => {
+              setOpenSideBar(!open);
+            }}
+          />
+        </MuiApp>
+   
     </>
   );
 }

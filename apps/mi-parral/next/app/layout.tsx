@@ -18,15 +18,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <Suspense fallback={<div>Cargando...</div>}>
-        <SessionProvider>
-          <body>
+      <SessionProvider>
+        <body>
+          <Suspense fallback={<div>Cargando...</div>}>
             <MuiApp>
               <Box minHeight={'700px'}>{children}</Box>
             </MuiApp>
-          </body>
-        </SessionProvider>
-      </Suspense>
+          </Suspense>
+        </body>
+      </SessionProvider>
     </html>
   );
 }

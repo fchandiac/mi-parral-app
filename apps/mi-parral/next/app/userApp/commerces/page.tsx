@@ -9,9 +9,9 @@ import CommerceMiniCard from './ui/CommerceMiniCard';
 import CommerceImagesButton from './ui/CommerceImagesButton';
 import CommerceWspButton from './ui/CommerceWspButton';
 const imagesUrl = process.env.NEXT_PUBLIC_IMAGES_BACKEND_URL;
-import HorizontalScroll from '@/components/HorizontalScroll';
 import MapButton from './ui/MapButton';
 import { Suspense } from 'react';
+import HorizontalAutoScroll from '@/components/HorizontalAutoScroll';
 
 export default async function ProductsPage({
   searchParams,
@@ -44,7 +44,7 @@ export default async function ProductsPage({
   ));
 
   return (
-    <Suspense fallback={<div>Cargando...</div>}>
+
     <>
       <Box
         sx={{
@@ -149,9 +149,8 @@ export default async function ProductsPage({
       <Box className="loader" width={'100%'} />
 
       <Box>
-        <HorizontalScroll listItems={commerceMiniCardList} />
+        <HorizontalAutoScroll listItems={commerceMiniCardList} />
       </Box>
     </>
-    </Suspense>
   );
 }

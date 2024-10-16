@@ -3,14 +3,14 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { Box, IconButton } from '@mui/material';
-import { Suspense } from 'react';
 
-export default function ExpandServicesButton() {
+
+export default function ExpandCommercesButton() {
   const { replace } = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  const showService = searchParams.get('showService') === 'true';
+  const showCommerce = searchParams.get('showCommerce') === 'true';
 
   // Función para actualizar los parámetros de búsqueda
   const updateSearchParam = (key: string, value: string | null) => {
@@ -27,21 +27,21 @@ export default function ExpandServicesButton() {
 
   return (
     <>
-        <Box>
-          <IconButton
-            sx={{
-              color: 'white',
-            }}
-            onClick={() => {
-              updateSearchParam(
-                'showService',
-                showService === true ? 'false' : 'true',
-              );
-            }}
-          >
-            {showService === true ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          </IconButton>
-        </Box>
+      <Box>
+        <IconButton
+          sx={{
+            color: 'white',
+          }}
+          onClick={() => {
+            updateSearchParam(
+              'showCommerce',
+              showCommerce === true ? 'false' : 'true',
+            );
+          }}
+        >
+          {showCommerce === true ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        </IconButton>
+      </Box>
     </>
   );
 }

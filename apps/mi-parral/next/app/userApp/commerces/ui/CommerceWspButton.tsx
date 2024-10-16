@@ -8,7 +8,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 
 type CommerceWspButtonProps = {
-  number: string | number;
+  number: string | number | null;
 };
 
 export default function CommerceWspButton( {number}: CommerceWspButtonProps ) {

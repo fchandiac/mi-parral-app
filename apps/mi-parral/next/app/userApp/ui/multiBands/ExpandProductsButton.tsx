@@ -5,12 +5,12 @@ import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { Box, IconButton } from '@mui/material';
 import { Suspense } from 'react';
 
-export default function ExpandServicesButton() {
+export default function ExpandProductsButton() {
   const { replace } = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  const showService = searchParams.get('showService') === 'true';
+  const showProduct = searchParams.get('showProduct') === 'true';
 
   // Función para actualizar los parámetros de búsqueda
   const updateSearchParam = (key: string, value: string | null) => {
@@ -34,12 +34,12 @@ export default function ExpandServicesButton() {
             }}
             onClick={() => {
               updateSearchParam(
-                'showService',
-                showService === true ? 'false' : 'true',
+                'showProduct',
+                showProduct === true ? 'false' : 'true',
               );
             }}
           >
-            {showService === true ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            {showProduct === true ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </IconButton>
         </Box>
     </>

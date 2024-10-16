@@ -1,12 +1,16 @@
 // components/HorizontalAutoScroll.tsx
 'use client';
+import { Skeleton } from '@mui/material';
 import React, { Suspense, useEffect, useRef, useState } from 'react';
+import MiniCardSkeleton from './MiniCardSkeleton';
 
 interface HorizontalScrollProps {
   listItems: React.JSX.Element[];
 }
 
-const HorizontalAutoScroll: React.FC<HorizontalScrollProps> = ({ listItems }) => {
+const HorizontalAutoScroll: React.FC<HorizontalScrollProps> = ({
+  listItems,
+}) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [items, setItems] = useState<React.JSX.Element[]>(listItems);
   const [isLoading, setIsLoading] = useState(false);
@@ -59,7 +63,7 @@ const HorizontalAutoScroll: React.FC<HorizontalScrollProps> = ({ listItems }) =>
   }, [listItems]);
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<MiniCardSkeleton />}>
       <div
         ref={scrollRef}
         style={{ display: 'flex', overflowX: 'auto', whiteSpace: 'nowrap' }}
@@ -75,4 +79,3 @@ const HorizontalAutoScroll: React.FC<HorizontalScrollProps> = ({ listItems }) =>
 };
 
 export default HorizontalAutoScroll;
-
