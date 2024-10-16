@@ -68,13 +68,6 @@ apps/mi-parral/next/.env.development
 apps/mi-parral/next/.env.production
 
 # Ignorar archivos Dist o Build
-apps/mi-parral/next/.next
-apps/mi-parral/next/.nuxt
-apps/mi-parral/next/.dist
-apps/mi-parral/next/.build
-
-.dist
-.build
 /dist
 
 
