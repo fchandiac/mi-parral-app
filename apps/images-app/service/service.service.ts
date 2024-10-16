@@ -9,6 +9,8 @@ import { UploadServiceImageDto } from 'apps/libs/dto/images/upload-service-image
 import { SetPrincipalServiceImageDto } from 'apps/libs/dto/images/set-principal-service-image.dto';
 import { envs } from 'apps/libs/config';
 
+const ImagesDir = join(__dirname, '../../../../storageMiParral/images/services');
+
 @Injectable()
 export class ServiceService {
   constructor(
@@ -18,7 +20,7 @@ export class ServiceService {
 
   // Configuración de Multer para manejar la subida de archivos
   public static storage = diskStorage({
-    destination: './dist/apps/images/services',
+    destination: ImagesDir,
     filename: (req, file, cb) => {
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
       const filename = `${uniqueSuffix}${extname(file.originalname)}`;
@@ -94,8 +96,7 @@ export class ServiceService {
     }
 
     const imagePath = join(
-      __dirname,
-      '../../dist/apps/images/services',
+      ImagesDir,
       image.image,
     );
 

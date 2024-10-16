@@ -39,8 +39,6 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
   }
 
 
-
-
   // Avanzar al siguiente slide
   const nextSlide = () => {
     setCurrentIndex((prevIndex) =>

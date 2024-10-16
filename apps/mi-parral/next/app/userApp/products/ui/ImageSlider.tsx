@@ -8,7 +8,7 @@ const imagesUrl = process.env.NEXT_PUBLIC_IMAGES_BACKEND_URL;
 
 interface Image {
   id: string;
-  serviceId: string;
+  productId: string;
   image: string; // URL de la imagen
 }
 
@@ -51,6 +51,8 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
               alignItems: 'center',
               justifyContent: 'center',
               overflow: 'hidden',
+              
+              // px: { xs: 0, sm: 0, md: '30vw', lg: '30vw' },
             }}
           >
             {/* Imagen actual */}

@@ -9,6 +9,8 @@ import { UploadCommerceImageDto } from 'apps/libs/dto/images/upload-commerce-ima
 import { SetPrincipalCommerceImageDto } from 'apps/libs/dto/images/set-principal-commerce-image-dto';
 import { envs } from 'apps/libs/config';
 
+const ImagesDir = join(__dirname, '../../../../storageMiParral/images/commerces');
+
 @Injectable()
 export class CommerceService {
   constructor(
@@ -18,7 +20,7 @@ export class CommerceService {
 
   // Configuración de Multer para manejar la subida de archivos
   public static storage = diskStorage({
-    destination: './dist/apps/images/commerces',
+    destination: ImagesDir,
     filename: (req, file, cb) => {
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
       const filename = `${uniqueSuffix}${extname(file.originalname)}`;
@@ -86,7 +88,7 @@ export class CommerceService {
       throw new NotFoundException('Image not found');
     }
 
-    const imagePath = join(__dirname, '../../dist/apps/images/commerces', image.image);
+    const imagePath = join(ImagesDir, image.image);
 
     try {
       await access(imagePath);

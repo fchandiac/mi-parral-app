@@ -9,6 +9,8 @@ import { UploadProductImageDto } from 'apps/libs/dto/images/upload-product-image
 import { SetPrincipalProductImageDto } from 'apps/libs/dto/images/set-principal-product-image.dto';
 import { envs } from 'apps/libs/config/envs';
 
+const ImagesDir = join(__dirname, '../../../../storageMiParral/images/products');
+
 @Injectable()
 export class ProductService {
   constructor(
@@ -16,9 +18,12 @@ export class ProductService {
     private readonly productImageRepository: Repository<ProductImageEntity>,
   ) {}
 
+
+
+
   // Configuración de Multer para manejar la subida de archivos
   public static storage = diskStorage({
-    destination: './dist/apps/images/products',
+    destination: ImagesDir,
     filename: (req, file, cb) => {
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
       const filename = `${uniqueSuffix}${extname(file.originalname)}`;
@@ -86,7 +91,7 @@ export class ProductService {
       throw new NotFoundException('Image not found');
     }
 
-    const imagePath = join(__dirname, '../../dist/apps/images/products', image.image);
+    const imagePath = join(ImagesDir, image.image);
 
     try {
       await access(imagePath);
