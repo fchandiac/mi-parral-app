@@ -75,6 +75,7 @@ apps/mi-parral/next/.build
 
 .dist
 .build
+/dist
 
 
 # Ignorar cualquier archivo temporal o de caché
