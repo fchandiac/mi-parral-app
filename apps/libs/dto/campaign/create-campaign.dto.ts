@@ -1,30 +1,65 @@
-import { IsInt, IsEnum, IsOptional, IsUUID, IsDateString } from 'class-validator';
-import { Gender, Neighborhoods } from '../../enums';
+import {
+  IsEnum,
+  IsOptional,
+  IsString,
+  IsUUID,
+  IsInt,
+  IsNotEmpty,
+  IsDateString,
+  IsDecimal,
+  ValidateIf,
+} from 'class-validator';
+import { Type, Transform } from 'class-transformer'; // Importar Transform
+import { DiscountType, Gender, Neighborhoods } from '../../enums'; // Importar los enums necesarios
 
 export class CreateCampaignDto {
-  @IsInt()
-  minAge: number;
+  @IsUUID()
+  userId?: string;
+
+  @IsString()
+  @IsNotEmpty()
+  name!: string; // Nombre de la campaña
 
   @IsInt()
-  maxAge: number;
+  @Transform(({ value }) => Number(value)) // Transformar a número
+  type: number = 0; // Valor por defecto
 
-  @IsEnum(Gender)
-  @IsOptional() // Esto es opcional ya que tiene un valor por defecto en la entidad
-  gender?: Gender;
+  @IsUUID()
+  referenceId?: string;
 
-  @IsEnum(Neighborhoods)
-  @IsOptional() // También opcional, con valor por defecto en la entidad
-  neighborhood?: Neighborhoods;
+  @IsInt()
+  @IsNotEmpty()
+  @Transform(({ value }) => Number(value)) // Transformar a número
+  minAge!: number; // Edad mínima
+
+  @IsInt()
+  @IsNotEmpty()
+  @Transform(({ value }) => Number(value)) // Transformar a número
+  maxAge!: number; // Edad máxima
+
+  @IsInt()
+  @Transform(({ value }) => Number(value)) // Transformar a número
+  gender: number = 0; // Valor por defecto
+
+  @IsInt()
+  @Transform(({ value }) => Number(value)) // Transformar a número
+  neighborhood:number = 0; // Valor por defecto
 
   @IsDateString()
-  @IsOptional() // Es opcional porque el valor `created` se genera automáticamente
-  created?: Date;
+  @IsNotEmpty()
+  expire!: Date; // Fecha de expiración
 
-  @IsDateString()
-  @IsOptional() // Esto será manejado automáticamente en la entidad
-  updated?: Date;
+  @IsInt()
+  @IsNotEmpty()
+  @Transform(({ value }) => Number(value)) // Transformar a número
+  quanty!: number; // Cantidad de cupones a crear
 
-  @IsDateString()
-  @IsOptional() // Esto también es opcional en caso de que sea para soft delete
-  deleted?: Date;
+  @IsInt()
+  @IsNotEmpty()
+  @Transform(({ value }) => Number(value)) // Transformar a número decimal
+  discount!: number; // Descuento a aplicar en cada cupón
+
+  @IsString()
+  @IsOptional()
+  rules?: string; // Reglas opcionales para el cupón
 }

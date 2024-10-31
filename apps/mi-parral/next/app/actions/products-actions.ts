@@ -48,6 +48,8 @@ export interface UpdateProductType {
 export const listUserProducts = async () => {
   const session = await auth();
   const user = await validateUser(session?.user?.email);
+
+  
   const response = await fetch(
     `${apiUrl}/products/findAllByUserId?id=${user.id}`,
     {

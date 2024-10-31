@@ -12,9 +12,13 @@ export class CouponService {
   ) {}
 
   // Función para crear un nuevo cupón
-  async create(createCouponDto: CreateCouponDto): Promise<CouponEntity> {
-    const newCoupon = this.couponRepository.create(createCouponDto);
-    return await this.couponRepository.save(newCoupon);
+  async create(dto: CreateCouponDto): Promise<CouponEntity> {
+    const coupon = this.couponRepository.create({
+      ...dto,
+      campaign: { id: dto.campaignId }, // Asigna correctamente el ID de la campaña
+    });
+  
+    return await this.couponRepository.save(coupon);
   }
 
   // Función para obtener todos los cupones

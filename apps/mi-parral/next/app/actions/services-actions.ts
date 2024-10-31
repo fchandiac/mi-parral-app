@@ -68,9 +68,6 @@ export const createService = async (service: CreateServiceType) => {
   if (!user || !user.id) {
     throw new Error('User validation failed');
   }
-
-
-
   service.userId = user.id;
   const response = await fetch(`${apiUrl}/services`, {
     method: 'POST',
@@ -81,7 +78,7 @@ export const createService = async (service: CreateServiceType) => {
   });
 
 
-  revalidatePath('/userApp/account/services');
+  revalidatePath('/userApp/posts/services');
   return response.json();
 };
 
@@ -95,12 +92,12 @@ export const findServiceImages = async (serviceId: string) => {
       },
     },
   );
-  revalidatePath('/userApp/account/services/ui/ServiceCard');
+  revalidatePath('/userApp/posts/services/ui/ServiceCard');
   return response.json();
 };
 
 export const refreshImagesServices = async () => {
-  revalidatePath('/userApp/account/services/ui/ServiceCard');
+  revalidatePath('/userApp/posts/services/ui/ServiceCard');
   console.log('refreshImagesServices');
   return;
 };

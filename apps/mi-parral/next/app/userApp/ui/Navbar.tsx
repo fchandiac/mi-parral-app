@@ -42,6 +42,8 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
         return 'Productos';
       case '/userApp/commerces':
         return 'Comercios';
+      case '/userApp/posts/campaigns':
+        return 'mis Campañas';
       default:
         return pathname;
     }

@@ -70,7 +70,6 @@ apps/mi-parral/next/.env.production
 # Ignorar archivos Dist o Build
 /dist
 
-
 # Ignorar cualquier archivo temporal o de caché
 
 apps/mi-parral/next/.DS_Store

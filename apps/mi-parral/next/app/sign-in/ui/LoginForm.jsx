@@ -59,11 +59,11 @@ export default function LoginForm() {
           alignItems: 'center',
           width: '100vw',
           px: {
-            xs: '20vw',
-            sm: '25vw',
-            md: '30vw',
+            xs: '10vw',
+            sm: '15vw',
+            md: '20vw',
             lg: '35vw',
-            xl: '40vw',
+            xl: '0vw',
           }, // Padding ajustable para diferentes tamaños de pantalla
           py: '10vh', // Márgenes ajustables para diferentes tamaños de pantalla
           boxSizing: 'border-box', // Asegura que el padding no afecte el ancho total

@@ -19,16 +19,22 @@ export enum Neighborhoods {
   OTROS = 10, // Solo barrios no locales
 }
 
-
 export enum DiscountStatus {
-    CREATED = 0, // Cupón recién creado y disponible
-    TAKEN = 1, // Cupón tomado por un usuario pero no usado
-    REDEEMED = 2, // Cupón canjeado o utilizado
-    EXPIRED = 3, // Cupón que ha expirado antes de su uso
-  }
-  
-  export enum DiscountType {
-    SERVICE = 0, // Cupón para un servicio
-    PRODUCT = 1, // Cupón para un producto
-    COMMERCE = 2, // Cupón para un comercio
-  }
+  CREATED = 0, // Cupón recién creado y disponible
+  TAKEN = 1, // Cupón tomado por un usuario pero no usado
+  REDEEMED = 2, // Cupón canjeado o utilizado
+  EXPIRED = 3, // Cupón que ha expirado antes de su uso
+}
+
+export enum DiscountType {
+  SERVICE = 0, // Cupón para un servicio
+  PRODUCT = 1, // Cupón para un producto
+  COMMERCE = 2, // Cupón para un comercio
+}
+
+export enum CouponStatus {
+  CREATED = 0, // Cupón recién creado y disponible
+  TAKEN = 1, // Cupón tomado por un usuario pero no usado
+  REDEEMED = 2, // Cupón canjeado o utilizado
+  EXPIRED = 3, // Cupón que ha expirado antes de su uso
+}

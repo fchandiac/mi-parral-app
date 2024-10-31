@@ -13,7 +13,7 @@ export default function RegisterForm() {
 
   useEffect(() => {
     if (session) {
-      router.push('/userApp');
+      router.push('/sign-in');
     }
   }, [session]);
 

@@ -102,8 +102,25 @@ const theme = createTheme({
         },
       },
     },
+
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          '&.MuiMenuItem-gutters': {
+            paddingLeft: '20px',
+            paddingRight: '2px',
+            paddingTop: '0px',
+            paddingBottom: '0px',
+            margin: '0px',
+          },
+        },
+      },
+    }
     
   },
+
+
+
   palette: {
     primary: {
       main: '#1d1d1d',

@@ -1,31 +1,21 @@
-import { IsDate, IsDecimal, IsInt, IsNotEmpty, IsOptional, IsUUID } from 'class-validator';
+import { IsString, IsInt, IsOptional, IsDate, IsNotEmpty } from 'class-validator'; // Importa validadores necesarios
+import { CouponStatus } from 'apps/libs/enums'; // Asegúrate de importar el enum correcto
 
 export class CreateCouponDto {
   @IsInt()
-  @IsNotEmpty()
-  status: number;
-
-  @IsUUID()
-  @IsOptional()
-  userId: string | null;
-
-  @IsUUID()
-  @IsOptional()
-  validationUserId: string | null;
+  @IsOptional() // Campo opcional
+  discount?: number; // Descuento, opcional
 
   @IsDate()
-  @IsOptional()
-  validationDate: Date | null;
+  @IsNotEmpty() // Campo obligatorio
+  expire!: Date; // Fecha de caducidad
 
-  @IsDate()
-  @IsNotEmpty()
-  expire: Date;
+  @IsString()
+  @IsOptional() // Campo opcional
+  rules?: string; // Reglas adicionales, opcional
 
-  @IsDecimal()
-  @IsNotEmpty()
-  discount: number;
 
-  @IsUUID()
-  @IsNotEmpty()
-  campaignId: string; // Relación con CampaignEntity
+  @IsString()
+  @IsNotEmpty() // Campo obligatorio
+  campaignId!: string; // ID de la campaña a la que pertenece el cupón
 }

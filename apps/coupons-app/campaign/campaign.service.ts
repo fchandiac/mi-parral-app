@@ -5,6 +5,7 @@ import { CampaignEntity } from '../../libs/entities/campaigns/campaign.entity';
 import { CreateCampaignDto } from '../../libs/dto/campaign/create-campaign.dto';
 import { UpdateCampaignDto } from '../../libs/dto/campaign/update-campaign.dto';
 import { CouponService } from '../coupon/coupon.service';
+import { CreateCouponDto } from 'apps/libs/dto/coupon/create-coupon.dto';
 
 @Injectable()
 export class CampaignService {
@@ -14,22 +15,37 @@ export class CampaignService {
     private readonly couponService: CouponService, // Inyecta el servicio de cupones
   ) {}
 
-  async create(createCampaignDto: CreateCampaignDto): Promise<CampaignEntity> {
-    const campaign = this.campaignRepository.create(createCampaignDto);
-    return await this.campaignRepository.save(campaign);
+  async create(dto: CreateCampaignDto): Promise<CampaignEntity> {
+    const campaign = this.campaignRepository.create(dto);
+    const { quanty } = dto;
+
+    const saveCampaign = await this.campaignRepository.save(campaign);
+
+    // Crea los cupones asociados a la campaña en paralelo
+    const couponPromises = Array.from({ length: quanty }, () =>
+      this.couponService.create({
+        campaignId: saveCampaign.id,
+        expire: dto.expire,
+        discount: dto.discount,
+        rules: dto.rules,
+      }),
+    );
+
+    await Promise.all(couponPromises);
+
+    // Guarda la campaña después de crear los cupones
+    return saveCampaign;
   }
 
-  async update(uuid: string, updateCampaignDto: UpdateCampaignDto): Promise<CampaignEntity> {
-    await this.campaignRepository.update(uuid, updateCampaignDto);
-    return await this.campaignRepository.findOneBy({ uuid });
+  async findAllByUser(userId: string): Promise<CampaignEntity[]> {
+    const campaigns = await this.campaignRepository.find({
+      where: { userId },
+    });
+    return campaigns;
   }
-
+  
   async findAll(): Promise<CampaignEntity[]> {
     return await this.campaignRepository.find();
-  }
-
-  async findOne(uuid: string): Promise<CampaignEntity> {
-    return await this.campaignRepository.findOneBy({ uuid });
   }
 
   async remove(uuid: string): Promise<void> {

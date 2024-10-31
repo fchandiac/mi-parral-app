@@ -171,18 +171,7 @@ export default function SideBar({ open, toggleDrawer }: UserSideBarProps) {
           <strong>Administrar</strong>
         </Typography>
         <List>
-          {/* <ListItem disablePadding>
-            <MenuItem
-              sx={{ width: '100%', paddingLeft: 2 }}
-              onClick={() => {
-                router.push('/userApp/posts/campaigns');
-                toggleDrawer(false);
-              }}
-            >
-              publica Descuentos
-            </MenuItem>
-          </ListItem> */}
-
+    
           <ListItem disablePadding>
             <MenuItem
               sx={{ width: '100%', paddingLeft: 2 }}
@@ -214,6 +203,17 @@ export default function SideBar({ open, toggleDrawer }: UserSideBarProps) {
               }}
             >
               mis Comercios
+            </MenuItem>
+          </ListItem>
+          <ListItem disablePadding>
+            <MenuItem
+              sx={{ width: '100%', paddingLeft: 2 }}
+              onClick={() => {
+                router.push('/userApp/posts/campaigns');
+                toggleDrawer(false);
+              }}
+            >
+              mis Campañas
             </MenuItem>
           </ListItem>
         </List>

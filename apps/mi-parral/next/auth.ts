@@ -34,6 +34,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       const email = user.email ? user.email : '';
       console.log('signIn-Email', email);
 
+      // colocar un validación para google user
+      // Actualmente solo valida que el usuario no exista en la base de datos
+
       console.log('signIn-User', user, account);
       try {
         const dbUser = await validateUser(email);

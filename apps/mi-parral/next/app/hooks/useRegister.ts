@@ -60,6 +60,8 @@ export const useRegister = () => {
     try {
       // Llamar a la función independiente para realizar el fetch
       const response = await registerUser(name, email, password);
+
+      
       if (response.error) {
         if (response.statusCode === 401) {
           setError('Email ya registrado');
@@ -67,9 +69,7 @@ export const useRegister = () => {
       }
     } catch (error) {
       setError('Error en el registro');
-    } finally {
-      setLoading(false);
-    }
+    } 
   };
 
   return { register, loading, error };

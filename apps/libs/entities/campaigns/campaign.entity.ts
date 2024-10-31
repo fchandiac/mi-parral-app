@@ -7,58 +7,50 @@ import {
   DeleteDateColumn,
   OneToMany,
 } from 'typeorm';
-import { DiscountType, Gender, Neighborhoods } from '../../enums'; // Asegúrate de importar tus enums
-import {  CouponEntity } from '../coupons/coupon.entity'; // Importa la entidad de Discount
+
+import { CouponEntity } from '../coupons/coupon.entity'; // Importa la entidad Coupon
 
 @Entity('campaigns')
 export class CampaignEntity {
   @PrimaryGeneratedColumn('uuid')
-  uuid: string;
+  id!: string; // Utilizar `!` para indicar que se inicializa en la base de datos
 
   @Column()
-  userId!: string | null;
+  name!: string;
 
-  @Column({
-    type: 'enum',
-    enum: DiscountType,
-    default: DiscountType.SERVICE,
-  })
-  type: DiscountType;
+  @Column({ nullable: true }) // Permitir nulos
+  userId?: string | null; // Hacer opcional
 
-  @Column()
-  referenceId!: string | null;
+  @Column({ type: 'int', default: 0 }) // Valor por defecto
+  type: Number;
 
-  @Column({ type: 'int' })
-  minAge: number;
+  @Column({ nullable: true, default: null }) // Permitir nulos
+  referenceId?: string | null; // Hacer opcional
 
   @Column({ type: 'int' })
-  maxAge: number;
+  minAge!: number;
 
-  @Column({
-    type: 'enum',
-    enum: Gender,
-    default: Gender.ALL,
-  })
-  gender: Gender;
+  @Column({ type: 'int' })
+  maxAge!: number;
 
-  @Column({
-    type: 'enum',
-    enum: Neighborhoods,
-    default: Neighborhoods.ALL,
-  })
-  neighborhood: Neighborhoods;
+  @Column({ type: 'int', default: 0 }) // Valor por defecto
+  gender: number;
 
-  @OneToMany(() => CouponEntity, (coupon) => coupon.campaign, {
-    cascade: true, // Opcional, para que las operaciones como insert/update se propaguen automáticamente
-  })
-  discounts!: CouponEntity[]; // Relación uno a muchos con la entidad Discount
+  @Column({ type: 'int', default: 0 }) // Valor por defecto
+  neighborhood: number;
+
+  @OneToMany(() => CouponEntity, (coupon) => coupon.campaign)
+  coupons!: CouponEntity[]; // Relación uno a muchos con la entidad Coupon
+
+  @Column({ type: 'timestamp' })
+  expire!: Date; // Asegurarse de que tenga un valor inicial
 
   @CreateDateColumn({ type: 'timestamp' })
-  created: Date;
+  created!: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
-  updated: Date;
+  updated!: Date;
 
   @DeleteDateColumn({ type: 'timestamp', nullable: true })
-  deleted?: Date;
+  deleted?: Date; // Hacer opcional
 }
