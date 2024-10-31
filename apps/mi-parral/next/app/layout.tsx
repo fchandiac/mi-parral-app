@@ -20,11 +20,11 @@ export default function RootLayout({
     <html lang="es">
       <SessionProvider>
         <body>
-    
+          <Suspense fallback={<div>Loading...</div>}>
             <MuiApp>
               <Box minHeight={'700px'}>{children}</Box>
             </MuiApp>
-   
+          </Suspense>
         </body>
       </SessionProvider>
     </html>
