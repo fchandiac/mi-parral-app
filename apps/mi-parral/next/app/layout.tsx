@@ -5,6 +5,7 @@ import { SessionProvider } from 'next-auth/react';
 import MuiApp from '@/mui/MuiApp';
 import { Box } from '@mui/material';
 import { Suspense } from 'react';
+//update the metadata object with the title and description of your app
 
 export const metadata: Metadata = {
   title: 'MiParral App',
