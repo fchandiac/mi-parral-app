@@ -22,7 +22,7 @@ export default async function ProductsPage({
 
   // Obtener la imagen del servicio
   const img = await commerceImage(commerceId);
-  console.log('img', img);
+
 
   const urlImage = (imageName: string) => {
     return `${imagesUrl}/images/commerces/${imageName}`;
@@ -39,6 +39,7 @@ export default async function ProductsPage({
     <CommerceMiniCard
       id={commerce.id}
       name={commerce.name}
+      categoryName={commerce?.category?.name}
 
     />
   ));

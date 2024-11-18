@@ -41,6 +41,7 @@ export default async function ProductsPage({
       id={product.id}
       name={product.name}
       price={product.price}
+      categoryName={product?.category?.name}
     />
   ));
 

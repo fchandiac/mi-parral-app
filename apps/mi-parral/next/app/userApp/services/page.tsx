@@ -39,6 +39,7 @@ export default async function ServicesPage({
       name={service.name}
       price={service.price}
       id={service.id}
+      categoryName={service?.category?.name}
     />
   ));
 

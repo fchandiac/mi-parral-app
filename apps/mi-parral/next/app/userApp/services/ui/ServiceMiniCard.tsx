@@ -8,12 +8,14 @@ interface ServiceMiniCardProps {
   id: string;
   name: string;
   price: number;
+  categoryName?: string;
 }
 
 export default async function ServiceMiniCard({
   id,
   name,
   price,
+  categoryName,
 }: ServiceMiniCardProps) {
   const urlImage = (imageName: string) => {
     return `${imagesUrl}/images/services/${imageName}`;
@@ -22,27 +24,47 @@ export default async function ServiceMiniCard({
   const image = await serviceImage(id);
 
   return (
-      <ImageMiniServiceCard imageUrl={urlImage(image.image)} serviceId={id}>
+    <ImageMiniServiceCard imageUrl={urlImage(image.image)} serviceId={id}>
+      <Box
+        sx={{
+          backgroundColor: 'rgba(0, 0, 0, 0.4)', // Fondo oscuro semitransparente
+          padding: '10px',
+          textAlign: 'left',
+        }}
+      >
+  
         <Box
           sx={{
-            backgroundColor: 'rgba(0, 0, 0, 0.4)', // Fondo oscuro semitransparente
-            padding: '10px',
-            textAlign: 'left',
+            position: 'absolute',
+            top: '10px',
+            right: '10px',
+            backgroundColor: '#1d1d1d', // Fondo rojo
+            borderRadius: '20px', // Bordes redondeados
+            padding: '5px 10px', // Espaciado interno
           }}
         >
-          {/* Nombre del servicio */}
-          <Typography fontSize={14}>{name}</Typography>
-          {/* Precio con formato CLP */}
-          <Typography fontSize={16}>
-            {price.toLocaleString('es-CL', {
-              style: 'currency',
-              currency: 'CLP',
-            })}
+          <Typography fontSize={12} color="white">
+            {categoryName}
           </Typography>
         </Box>
-      </ImageMiniServiceCard>
-
+      </Box>
+      <Box
+        sx={{
+          backgroundColor: 'rgba(0, 0, 0, 0.4)', // Fondo oscuro semitransparente
+          padding: '10px',
+          textAlign: 'left',
+        }}
+      >
+        {/* Nombre del servicio */}
+        <Typography fontSize={14}>{name}</Typography>
+        {/* Precio con formato CLP */}
+        <Typography fontSize={16}>
+          {price.toLocaleString('es-CL', {
+            style: 'currency',
+            currency: 'CLP',
+          })}
+        </Typography>
+      </Box>
+    </ImageMiniServiceCard>
   );
 }
-
-

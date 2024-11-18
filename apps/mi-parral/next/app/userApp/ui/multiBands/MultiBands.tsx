@@ -48,11 +48,13 @@ export default async function MultiBands({
   const services = await findAllServices();
   const service = await findOneService(serviceId);
   const serviceHomeImage = await serviceImage(serviceId); // Assuming findServiceImage is the correct function
+
   const servicesList = services.map((service: any) => (
     <ServiceMiniCard
       id={service ? service.id : ''}
       name={service ? service.name : ''}
       price={service ? service.price : 0}
+      categoryName={service?.category?.name}
     />
   ));
 
@@ -65,6 +67,7 @@ export default async function MultiBands({
       id={product ? product.id : ''}
       name={product ? product.name : ''}
       price={product ? product.price : 0}
+      categoryName={product?.category?.name}
     />
   ));
 
@@ -78,6 +81,7 @@ export default async function MultiBands({
       key={commerce?.id} // Agrega una clave única para cada tarjeta
       id={commerce?.id || ''} // Usa el operador de encadenamiento opcional y el operador lógico OR
       name={commerce?.name || ''} // Usa el operador de encadenamiento opcional y el operador lógico OR
+      categoryName={commerce?.category?.name || ''} // Usa el operador de encadenamiento opcional y el operador lógico OR
     />
   ));
 

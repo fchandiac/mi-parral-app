@@ -33,6 +33,7 @@ interface UserSideBarProps {
 export default function SideBar({ open, toggleDrawer }: UserSideBarProps) {
   const { data: session } = useSession();
   const router = useRouter();
+
   return (
     <Box>
       {/* Drawer temporal */}
@@ -171,7 +172,6 @@ export default function SideBar({ open, toggleDrawer }: UserSideBarProps) {
           <strong>Administrar</strong>
         </Typography>
         <List>
-    
           <ListItem disablePadding>
             <MenuItem
               sx={{ width: '100%', paddingLeft: 2 }}
@@ -205,7 +205,7 @@ export default function SideBar({ open, toggleDrawer }: UserSideBarProps) {
               mis Comercios
             </MenuItem>
           </ListItem>
-          <ListItem disablePadding>
+          {/* <ListItem disablePadding>
             <MenuItem
               sx={{ width: '100%', paddingLeft: 2 }}
               onClick={() => {
@@ -215,7 +215,7 @@ export default function SideBar({ open, toggleDrawer }: UserSideBarProps) {
             >
               mis Campañas
             </MenuItem>
-          </ListItem>
+          </ListItem> */}
         </List>
         <Divider />
         <Grid
