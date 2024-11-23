@@ -78,7 +78,7 @@ export default function ServiceMiniPage({
                 {name}
               </Typography>
               {/* Precio del servicio */}
-              <Typography
+              {/* <Typography
                 component="div"
                 sx={{
                   fontSize: 14, // Ajusta el tamaño de fuente
@@ -90,7 +90,7 @@ export default function ServiceMiniPage({
                   style: 'currency',
                   currency: 'CLP',
                 })}
-              </Typography>
+              </Typography> */}
               <Typography
                 component="div"
                 sx={{

@@ -28,7 +28,7 @@ export default async function ServiceMiniCard({
       <Box
         sx={{
           backgroundColor: 'rgba(0, 0, 0, 0.4)', // Fondo oscuro semitransparente
-          padding: '10px',
+  
           textAlign: 'left',
         }}
       >
@@ -48,22 +48,25 @@ export default async function ServiceMiniCard({
           </Typography>
         </Box>
       </Box>
+
+
       <Box
         sx={{
           backgroundColor: 'rgba(0, 0, 0, 0.4)', // Fondo oscuro semitransparente
           padding: '10px',
           textAlign: 'left',
+
         }}
       >
         {/* Nombre del servicio */}
         <Typography fontSize={14}>{name}</Typography>
         {/* Precio con formato CLP */}
-        <Typography fontSize={16}>
+        {/* <Typography fontSize={16}>
           {price.toLocaleString('es-CL', {
             style: 'currency',
             currency: 'CLP',
           })}
-        </Typography>
+        </Typography> */}
       </Box>
     </ImageMiniServiceCard>
   );

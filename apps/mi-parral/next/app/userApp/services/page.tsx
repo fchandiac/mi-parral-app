@@ -94,7 +94,7 @@ export default async function ServicesPage({
                     {name}
                   </Typography>
                   {/* Precio del servicio */}
-                  <Typography
+                  {/* <Typography
                     component="div"
                     sx={{
                       fontSize: 14, // Ajusta el tamaño de fuente
@@ -106,7 +106,7 @@ export default async function ServicesPage({
                       style: 'currency',
                       currency: 'CLP',
                     })}
-                  </Typography>
+                  </Typography> */}
                   <Typography
                     component="div"
                     sx={{
