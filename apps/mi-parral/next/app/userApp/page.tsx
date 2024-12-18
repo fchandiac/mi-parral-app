@@ -1,7 +1,7 @@
 import { SessionProvider } from 'next-auth/react';
 import MultiBands from './ui/multiBands/MultiBands';
 import { Box } from '@mui/material';
-import { Suspense } from 'react';
+
 
 export default function UserAppHomePage({
   searchParams,

@@ -1,14 +1,13 @@
-'use server';
+
 import { Box, Typography } from '@mui/material';
 
 import { commerceImage, findOneCommerce, findAllByCategoryNameOrCommerceName, } from '@/app/actions/commerces-actions';
   
-
+const imagesUrl = process.env.NEXT_PUBLIC_IMAGES_BACKEND_URL;
 import SearchTermInput from './ui/SearchTermInput';
 import CommerceMiniCard from './ui/CommerceMiniCard';
 import CommerceImagesButton from './ui/CommerceImagesButton';
 import CommerceWspButton from './ui/CommerceWspButton';
-const imagesUrl = process.env.NEXT_PUBLIC_IMAGES_BACKEND_URL;
 import MapButton from './ui/MapButton';
 import { Suspense } from 'react';
 import HorizontalAutoScroll from '@/components/HorizontalAutoScroll';

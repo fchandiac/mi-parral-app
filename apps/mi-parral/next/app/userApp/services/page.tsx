@@ -1,4 +1,4 @@
-'use server';
+
 import { Box, Typography } from '@mui/material';
 import {
   serviceImage,

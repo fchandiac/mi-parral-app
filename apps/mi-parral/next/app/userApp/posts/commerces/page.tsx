@@ -4,7 +4,7 @@ import CommercesList from './ui/CommercesList';
 import { findAllCategories } from '@/app/actions/categories-actions';
 
 export default async function CommercePage() {
-  const categories =  await findAllCategories();
+  // const categories =  await findAllCategories();
   return (
     
     <Box
@@ -14,7 +14,7 @@ export default async function CommercePage() {
       minWidth={'330px'}
       pt={2}
     >
-      <NewCommerceButton categories={categories}/>
+      {/* <NewCommerceButton categories={categories}/> */}
       <CommercesList />
      
     </Box>
