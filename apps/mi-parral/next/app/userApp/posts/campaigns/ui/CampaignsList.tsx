@@ -13,8 +13,6 @@ import CampaingCard from './CampaingCard';
 export default async function CampaignsList() {
   const campaignsList = await listUserCampaigns();
 
-  console.log(campaignsList);
-
   if (campaignsList.length === 0) {
     return (
       <>
@@ -30,11 +28,23 @@ export default async function CampaignsList() {
     <>
       <Grid container spacing={1}>
         {campaignsList.map((campaign: any) => {
+      
           return (
             <Grid item key={campaign.id} xs={12} sm={6}>
               <CampaingCard 
               name={campaign.name}
-              rules={campaign.rules}
+              type={campaign.type}
+              referenceId={campaign.referenceId}
+              quanty={campaign.coupons.length}
+              minAge={campaign.minAge}
+              maxAge={campaign.maxAge}
+              gender={campaign.gender}
+              neighborhood={campaign.neighborhood}
+              discount={campaign.coupons[0].discount}
+              expire={campaign.expire}
+              rules={campaign.coupons[0].rules}
+              coupons={campaign.coupons}
+              reference={campaign.reference}
                />
             </Grid>
           );

@@ -9,7 +9,7 @@ import {
   HttpException,
   UnauthorizedException,
   Query,
-  NotFoundException
+  NotFoundException,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import e, { Request, Response } from 'express';
@@ -22,6 +22,7 @@ import { CreateUserDto } from 'apps/libs/dto/user/create-user.dto';
 import { ValidateUserDto } from 'apps/libs/dto/user/validate-user.dto';
 import { ProfileEntity } from 'apps/libs/entities/users/profile.entity';
 import { UpdateProfileDto } from 'apps/libs/dto/profile/update-profile.dto';
+import { ByEmailDto } from 'apps/libs/dto/common/by-mail.dto';
 
 @Controller('')
 export class AuthController {
@@ -54,13 +55,11 @@ export class AuthController {
   async validateUser(
     @Body() validateUserDto: ValidateUserDto,
   ): Promise<UserEntity | null> {
- 
-      const user = await this.authService.validateUser(validateUserDto);
-      if (user === null) {
-        throw new UnauthorizedException('Invalid credentials');
-      }
-      return user;
-
+    const user = await this.authService.validateUser(validateUserDto);
+    if (user === null) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+    return user;
   }
 
   @Post('/registerUser')
@@ -69,7 +68,12 @@ export class AuthController {
   ): Promise<UserEntity> {
     try {
       const user = await this.authService.registerUser(createUserDto);
-      const profile = await this.authService.createProfile({userId: user.id, birthdate: null, neighborhood: null, gender:null  });
+      const profile = await this.authService.createProfile({
+        userId: user.id,
+        birthdate: null,
+        neighborhood: null,
+        gender: null,
+      });
       return user;
     } catch (e) {
       return e.response;
@@ -116,7 +120,9 @@ export class AuthController {
   }
 
   @Get('/profile/isComplete')
-  async isProfileComplete(@Query('profileId') profileId: string): Promise<Boolean> {
+  async isProfileComplete(
+    @Query('profileId') profileId: string,
+  ): Promise<Boolean> {
     return this.authService.isProfileComplete(profileId);
   }
 
@@ -125,4 +131,15 @@ export class AuthController {
     return this.authService.updateProfile(dto);
   }
 
+  //async sendRecoveryPassEmail(dto: ByEmailDto): Promise<void>
+
+  @Post('/recoveryPassEmail')
+  async sendRecoveryPassEmail(@Body() dto: ByEmailDto): Promise<void> {
+    return this.authService.sendRecoveryPassEmail(dto);
+  }
+
+  @Get('findUserById')
+  async findUserById(@Query('id') id: string): Promise<UserEntity> {
+    return this.userService.getUserById({ id });
+  }
 }

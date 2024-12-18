@@ -8,6 +8,7 @@ import { CampaignService } from '../campaign/campaign.service';
 import { CouponController } from '../coupon/coupon.controller';
 import { CouponService } from '../coupon/coupon.service';
 
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -19,10 +20,13 @@ import { CouponService } from '../coupon/coupon.service';
       database: envs.database.couponsDatabaseName,
       entities: [CampaignEntity, CouponEntity], // Agrega ambas entidades: Campaign y Coupon
       synchronize: true,
-      logging: true,
+      //logging: true,
       //dropSchema: true, // Si no quieres borrar el esquema, comenta o elimina esta línea
     }),
     TypeOrmModule.forFeature([CampaignEntity, CouponEntity]), // Agrega ambas entidades: Campaign y Coupon
+    
+
+
   ],
   controllers: [CampaignController, CouponController], // Agrega el controlador de cupones
   providers: [CampaignService, CouponService], // Agrega el servicio de cupones

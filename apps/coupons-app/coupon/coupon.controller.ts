@@ -1,6 +1,19 @@
-import { Controller, Get, Post, Body, Param, Patch } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Patch,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { CouponService } from './coupon.service';
 import { CreateCouponDto } from '../../libs/dto/coupon/create-coupon.dto';
+import { CouponsSelectionDto } from '../../libs/dto/commerce/coupons-selection.dto';
+import { ByIdDto } from 'apps/libs/dto/common/by-id.dto';
+import { UpdateCouponStatusDto } from 'apps/libs/dto/coupon/update-status.dto';
+import { ValidateCouponDto } from 'apps/libs/dto/coupon/validate-coupon.dto';
 
 @Controller('coupons')
 export class CouponController {
@@ -18,9 +31,32 @@ export class CouponController {
     return await this.couponService.findAll();
   }
 
-  // Ruta para actualizar el estado de un cupón por su ID
-  @Patch(':id/status')
-  async updateStatus(@Param('id') id: string, @Body('status') status: number) {
-    return await this.couponService.updateStatus(id, status);
+ 
+
+  @Post('couponsSelection')
+  async couponsSelection(@Body() dto: CouponsSelectionDto) {
+    return await this.couponService.couponsSelection(dto);
+  }
+
+  @Delete('delete')
+  async delete(@Body() dto: ByIdDto) {
+    return await this.couponService.delete(dto);
+  }
+
+  //  async updateStatus(dto: UpdateCouponStatusDto)
+
+  @Post('updateStatus')
+  async updateStatus(@Body() dto: UpdateCouponStatusDto) {
+    return await this.couponService.updateStatus(dto);
+  }
+
+  @Get('findAllByUserId')
+  async findAllByUserId(@Query('userId') userId: string) {
+    return await this.couponService.findAllByUserId(userId);
+  }
+
+  @Post('validateCoupon')
+  async validateCoupon(@Body() dto: ValidateCouponDto) {
+    return await this.couponService.validateCoupon(dto);
   }
 }

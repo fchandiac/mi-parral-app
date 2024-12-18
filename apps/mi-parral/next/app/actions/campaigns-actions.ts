@@ -35,6 +35,7 @@ export enum DiscountStatus {
   TAKEN = 1, // Cupón tomado por un usuario pero no usado
   REDEEMED = 2, // Cupón canjeado o utilizado
   EXPIRED = 3, // Cupón que ha expirado antes de su uso
+  DELETED = 4, // Cupón eliminado por el administrador
 }
 
 export enum DiscountType {

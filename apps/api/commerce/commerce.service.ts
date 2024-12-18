@@ -7,7 +7,6 @@ import { CommerceEntity } from 'apps/libs/entities/commerces/commerce.entity';
 import { UpdateCommerceDto } from 'apps/libs/dto/commerce/update-commerce.dto';
 import { CategoryService } from '../category/category.service';
 
-
 @Injectable()
 export class CommerceService {
   constructor(
@@ -17,7 +16,7 @@ export class CommerceService {
   ) {}
 
   // Crear un nuevo servicio
-  async create( dto:  CreateCommerceDto): Promise<CommerceEntity> {
+  async create(dto: CreateCommerceDto): Promise<CommerceEntity> {
     const category = await this.categoryService.findOne(dto.categoryId);
     const commerce = this.commerceRepository.create(dto);
     commerce.category = category;
@@ -45,7 +44,9 @@ export class CommerceService {
     return commerce;
   }
 
-  async findAllByCategoryNameOrCommerceName(searchTerm: string): Promise<CommerceEntity[]> {
+  async findAllByCategoryNameOrCommerceName(
+    searchTerm: string,
+  ): Promise<CommerceEntity[]> {
     if (!searchTerm) {
       return this.commerceRepository.find({
         relations: ['category'],
@@ -60,12 +61,11 @@ export class CommerceService {
     });
   }
 
-
   async findAllByUserId(dto: ByIdDto): Promise<CommerceEntity[]> {
     const commerces = await this.commerceRepository.find({
       where: { userId: dto.id },
       order: { createdAt: 'DESC' },
-      relations: ['category'] // Asumiendo que tienes un campo 'createdAt' para la fecha de creación
+      relations: ['category'], // Asumiendo que tienes un campo 'createdAt' para la fecha de creación
     });
     return commerces;
   }
@@ -78,23 +78,32 @@ export class CommerceService {
   }
 
   async findRandom(): Promise<CommerceEntity> {
-    const commerce = await this.commerceRepository.find({ withDeleted: false, relations: ['category'] });
+    const commerce = await this.commerceRepository.find({
+      withDeleted: false,
+      relations: ['category'],
+    });
     const randomIndex = Math.floor(Math.random() * commerce.length);
     return commerce ? commerce[randomIndex] : null;
   }
 
- async update(dto: UpdateCommerceDto): Promise<CommerceEntity> {
-  const commerce = await this.commerceRepository.findOneBy({ id: dto.id });
-  if (!commerce) {
-    throw new NotFoundException(`Commerce with ID ${dto.id} not found`);
+  async update(dto: UpdateCommerceDto): Promise<CommerceEntity> {
+    const commerce = await this.commerceRepository.findOneBy({ id: dto.id });
+    if (!commerce) {
+      throw new NotFoundException(`Commerce with ID ${dto.id} not found`);
+    }
+    const updatedCommerce = this.commerceRepository.merge(commerce, dto);
+    return this.commerceRepository.save(updatedCommerce);
   }
-  const updatedCommerce = this.commerceRepository.merge(commerce, dto);
-  return this.commerceRepository.save(updatedCommerce);
- }
+
+  async findOneById(dto: ByIdDto): Promise<CommerceEntity> {
+    const commerce = await this.commerceRepository.findOne({
+      where: { id: dto.id },
+    });
+    if (!commerce) {
+      throw new NotFoundException(`Commerce with ID ${dto.id} not found`);
+    }
+    return commerce;
+  }
 }
 
-
-
-
-
-  // Eliminar un servicio por ID
+// Eliminar un servicio por ID

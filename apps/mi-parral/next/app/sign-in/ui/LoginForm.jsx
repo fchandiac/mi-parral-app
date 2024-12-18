@@ -4,11 +4,13 @@ import { signIn } from 'next-auth/react';
 import { Grid, TextField, Box, Button, Typography, Alert, Dialog } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import FormSkeleton from './FormSkeleton';
+import RecoveryPassDialog from './RecoveryPassDialog';
 
 export default function LoginForm() {
   const [error, setError] = useState(null);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [openRecoveryPassDialog, setOpenRecoveryPassDialog] = useState(false);
 
 
   const handleSubmit = async (e) => {
@@ -123,7 +125,13 @@ export default function LoginForm() {
                 </Alert>
               )}
             </Grid>
-            <Grid item textAlign={'right'}>
+            <Grid item  container justifyContent={'space-between'}>
+            <Button variant="text" size="small"
+              disabled={loading}
+              onClick={() =>{setOpenRecoveryPassDialog(true)}}
+              >
+                recuperar contraseña
+              </Button>
               <Button variant="text" size="small"
               disabled={loading}
               onClick={handleRegister}
@@ -162,6 +170,7 @@ export default function LoginForm() {
           </Grid>
         </Box>
       </form>
+      <RecoveryPassDialog open={openRecoveryPassDialog} onClose={() =>{setOpenRecoveryPassDialog(false)}} />
 
     </>
   );

@@ -115,7 +115,10 @@ export class CategorySeederService {
       { name: 'Traductor/a e Intérprete' },
       { name: 'Trabajador/a Social' },
       { name: 'Vendedor/a' },
-      { name: 'Veterinario/a' }
+      { name: 'Veterinario/a' },
+      { name: 'Minimarket' },
+      { name:'Botillería' },
+      { name: 'Estudio de tatuajes' },
   ];
 
     for (const category of categories) {

@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Body,
+  Query,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from '../../libs/dto/user/create-user.dto';
 import { UpdateUserDto } from '../../libs/dto/user/update-user.dto';
@@ -21,16 +30,18 @@ export class UserController {
     return this.userService.getAllUsers();
   }
 
+
+
   // Obtener un usuario por ID
   @Get('/findOneById')
-  async getUserById(@Body() byIdDto: ByIdDto): Promise<UserEntity> {
-    return this.userService.getUserById(byIdDto);
+  async getUserById(@Query('id') id:string): Promise<UserEntity> {
+    return this.userService.getUserById({ id });
   }
 
   // Actualizar un usuario existente
   @Put()
   async updateUser(
-    @Body() 
+    @Body()
     updateUserDto: UpdateUserDto,
   ): Promise<UserEntity> {
     return this.userService.updateUser(updateUserDto);

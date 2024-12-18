@@ -13,7 +13,8 @@ import { CategoryEntity } from 'apps/libs/entities/categories/category.entity';
     TypeOrmModule.forFeature([CommerceEntity, CategoryEntity]),
   ],
   controllers: [CommerceController],
-  providers: [CommerceService, CategoryService]
+  providers: [CommerceService, CategoryService],
+  exports: [CommerceService]
 })
 export class CommerceModule{}
 

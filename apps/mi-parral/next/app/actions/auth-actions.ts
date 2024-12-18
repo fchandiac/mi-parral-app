@@ -102,3 +102,29 @@ export const logoutAction = async () => {
 
   throw new Error('Error al cerrar sesión');
 };
+
+// @Get('/findOneById')
+
+export const getUserById = async (id:string) => {
+  const response = await fetch(`${authUrl}/findUserById?id=${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  return response.json();
+}
+
+
+
+export const recoveryPassEmail = async (email: string) => {
+  const response = await fetch(`${authUrl}/recoveryPassEmail`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email }),
+  });
+
+}

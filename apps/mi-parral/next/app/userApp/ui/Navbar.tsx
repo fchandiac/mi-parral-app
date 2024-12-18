@@ -44,6 +44,12 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
         return 'Comercios';
       case '/userApp/posts/campaigns':
         return 'mis Campañas';
+      case '/userApp/posts/coupons':
+        return 'mis Descuentos';
+      case '/userApp/coupons':
+        return 'Descuentos';
+      case '/userApp/posts/validate':
+        return 'Validar Descuento';
       default:
         return pathname;
     }

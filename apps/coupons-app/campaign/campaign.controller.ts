@@ -3,6 +3,7 @@ import { CampaignService } from './campaign.service';
 import { CreateCampaignDto } from '../../libs/dto/campaign/create-campaign.dto';
 import { UpdateCampaignDto } from '../../libs/dto/campaign/update-campaign.dto';
 import { CampaignEntity } from '../../libs/entities/campaigns/campaign.entity';
+import { ByIdDto } from 'apps/libs/dto/common/by-id.dto';
 
 @Controller('campaigns')
 export class CampaignController {
@@ -36,8 +37,8 @@ export class CampaignController {
   //   return await this.campaignService.update(uuid, updateCampaignDto);
   // }
 
-  @Delete(':uuid')
-  async remove(@Param('uuid') uuid: string): Promise<void> {
-    return await this.campaignService.remove(uuid);
+  @Delete('byId')
+  async remove(@Body() dto: ByIdDto): Promise<void> {
+    return await this.campaignService.remove(dto);
   }
 }

@@ -128,6 +128,17 @@ export default function SideBar({ open, toggleDrawer }: UserSideBarProps) {
         </Typography>
 
         <List>
+        <ListItem disablePadding>
+            <MenuItem
+              onClick={() => {
+                router.push('/userApp/coupons');
+                toggleDrawer(false);
+              }}
+              sx={{ width: '100%' }}
+            >
+              Descuentos
+            </MenuItem>
+          </ListItem>
           <ListItem disablePadding>
             <MenuItem
               onClick={() => {
@@ -172,6 +183,17 @@ export default function SideBar({ open, toggleDrawer }: UserSideBarProps) {
           <strong>Administrar</strong>
         </Typography>
         <List>
+        <ListItem disablePadding>
+            <MenuItem
+              sx={{ width: '100%', paddingLeft: 2 }}
+              onClick={() => {
+                router.push('/userApp/posts/coupons');
+                toggleDrawer(false);
+              }}
+            >
+              mis Descuentos
+            </MenuItem>
+          </ListItem>
           <ListItem disablePadding>
             <MenuItem
               sx={{ width: '100%', paddingLeft: 2 }}
@@ -205,7 +227,7 @@ export default function SideBar({ open, toggleDrawer }: UserSideBarProps) {
               mis Comercios
             </MenuItem>
           </ListItem>
-          {/* <ListItem disablePadding>
+          <ListItem disablePadding>
             <MenuItem
               sx={{ width: '100%', paddingLeft: 2 }}
               onClick={() => {
@@ -215,7 +237,18 @@ export default function SideBar({ open, toggleDrawer }: UserSideBarProps) {
             >
               mis Campañas
             </MenuItem>
-          </ListItem> */}
+          </ListItem>
+          <ListItem disablePadding>
+            <MenuItem
+              sx={{ width: '100%', paddingLeft: 2 }}
+              onClick={() => {
+                router.push('/userApp/posts/validate');
+                toggleDrawer(false);
+              }}
+            >
+              Validar Descuento
+            </MenuItem>
+          </ListItem>
         </List>
         <Divider />
         <Grid

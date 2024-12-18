@@ -15,6 +15,7 @@ export async function findAllCategories() {
     headers: {
       'Content-Type': 'application/json',
     },
+    cache: 'no-cache',
   });
 
     return categories.json();
