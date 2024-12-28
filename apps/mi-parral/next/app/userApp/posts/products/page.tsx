@@ -1,10 +1,10 @@
 import { Box } from '@mui/material';
 import NewProductButton from './ui/NewProductButton';
-// import { findAllCategories } from '@/app/actions/categories-actions';
+import { findAllCategories } from '@/app/actions/categories-actions';
 import ProductsList from './ui/ProductsList';
 
 export default async function ProductPage() {
-  // const categories = await findAllCategories();
+  const categories = await findAllCategories();
   return (
     <Box
       px={{ xs: '2vw', sm: '16vw', md: '12vw' }}
@@ -13,7 +13,7 @@ export default async function ProductPage() {
       minWidth={'330px'}
       pt={2}
     >
-      {/* <NewProductButton categories={categories} /> */}
+      <NewProductButton categories={categories} />
       <ProductsList />
     </Box>
   );

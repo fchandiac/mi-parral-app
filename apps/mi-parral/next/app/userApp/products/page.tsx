@@ -36,6 +36,8 @@ export default async function ProductsPage({
   const productList = await findAllByCategoryNameOrProductName(
     searchTerm ? searchTerm : '',
   );
+
+  
   const productsMiniCardList = productList.map((product: any) => (
     <ProductMiniCard
       id={product.id}

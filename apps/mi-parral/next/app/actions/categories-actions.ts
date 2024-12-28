@@ -9,7 +9,6 @@ const apiUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 
 export async function findAllCategories() {
-
   const categories = await fetch(`${apiUrl}/categories`, {
     method: 'GET',
     headers: {
