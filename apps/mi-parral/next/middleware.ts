@@ -10,10 +10,13 @@ export async function middleware(req: NextRequest) {
 
   // Protege las rutas que empiezan con `/userApp`
   if (req.nextUrl.pathname.startsWith('/userApp')) {
-    if (!token) {
-      // Redirige al usuario no autenticado a la página de inicio de sesión
-      return NextResponse.redirect(new URL('/api/auth/signin', req.url));
-    }
+
+    return NextResponse.redirect(new URL('/information', req.url));
+
+    // if (!token) {
+    //   // Redirige al usuario no autenticado a la página de inicio de sesión
+    //   return NextResponse.redirect(new URL('/api/auth/signin', req.url));
+    // }
   }
 
   return NextResponse.next();
