@@ -1,5 +1,12 @@
+'use client'
 import React from 'react';
-import { Box, Typography, Container } from '@mui/material';
+import { Box, Typography, Container, IconButton } from '@mui/material';
+import {
+  faFacebook,
+  faInstagram,
+  faWhatsapp,
+} from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function ComingSoonPage() {
   return (
@@ -63,7 +70,51 @@ export default function ComingSoonPage() {
           las actualizaciones y novedades de <strong>miparral.app</strong>. Muy pronto 
           recibirás más detalles en tu correo electrónico.
         </Typography>
+       
       </Container>
+        <Box
+           sx={{
+             height: '60px',
+             display: 'flex',
+             justifyContent: 'center',
+             alignItems: 'center',
+             width: '100%',
+             //backgroundColor: 'background.default', // Color de fondo, ajusta según tus necesidades
+        color: 'white',
+      
+             bottom: 0,
+             left: 0,
+             zIndex: 1000, // Asegura que el `Box` esté en la parte superior de otros elementos
+           }}
+         >
+           <IconButton
+             sx={{ color: 'white' }}
+
+             onClick={() => {
+               window.open('https://www.facebook.com/miparralapp?mibextid=wwXIfr&rdid=K3em7VEMEshcqkk2&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F19nTLJVGA5%2F%3Fmibextid%3DwwXIfr', '_blank');
+             }}
+           >
+             <FontAwesomeIcon
+             fontSize={40}
+              icon={faFacebook} />
+           </IconButton>
+           {/* <IconButton
+             sx={{ color: 'white' }}
+             onClick={() => {
+               window.open('https://www.instagram.com/miparral', '_blank');
+             }}
+           >
+             <FontAwesomeIcon icon={faInstagram} />
+           </IconButton>
+           <IconButton
+             sx={{ color: 'white' }}
+             onClick={() => {
+               window.open('https://wa.me/1234567890', '_blank');
+             }}
+           >
+             <FontAwesomeIcon icon={faWhatsapp} />
+           </IconButton> */}
+         </Box>
     </Box>
   );
 }
